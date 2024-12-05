@@ -1,0 +1,2 @@
+# FFXIVTrigger
+最终幻想14中用Triggernometry制作的一些实用触发器
