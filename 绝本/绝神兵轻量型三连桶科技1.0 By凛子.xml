@@ -1,0 +1,179 @@
+<?xml version="1.0"?>
+<TriggernometryExport PluginVersion="1.2.0.718">
+  <ExportedFolder FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^777$" Id="8e584338-6e75-4f6d-a0fe-00949b166a2d" ZoneFilterRegularExpression="^究极神兵绝境战$" Name="绝神兵轻量型三连桶科技1.0 By凛子" Enabled="true">
+    <Folders>
+      <Folder Id="0fc34c96-81ca-47d9-9ab5-790a017a218f" Name="小队初始化" Enabled="true">
+        <Folders />
+        <Triggers>
+          <Trigger Enabled="true" Name="进本弹出阿洛的小队框架配置窗口" Id="4d6a60b9-55c0-4045-858e-f4d9a9e4e2cc" RegularExpression="^.{15}\S+ 01:(?&lt;zoneId&gt;[^:]*):">
+            <Actions>
+              <Action OrderNumber="1" LogMessageText="PartyList:Register:${n: 0x${zoneId} }:MT, ST, D1, D2, D3, D4, H1, H2" LogProcess="True" ActionType="LogMessage" />
+              <Action OrderNumber="2" LogMessageText="PartyList:Register:${n: 0x${zoneId} }:Self" LogProcess="True" Enabled="False" ActionType="LogMessage" />
+            </Actions>
+          </Trigger>
+          <Trigger Enabled="true" Name="清除标点（全体）" Id="59c774b9-0024-4e6b-a934-43be93cef011" RegularExpression="">
+            <Actions>
+              <Action OrderNumber="1" NamedCallbackName="command" NamedCallbackParam="/mk clear &lt;1&gt;" ActionType="NamedCallback" />
+              <Action OrderNumber="2" NamedCallbackName="command" NamedCallbackParam="/mk clear &lt;2&gt;" ActionType="NamedCallback" />
+              <Action OrderNumber="3" NamedCallbackName="command" NamedCallbackParam="/mk clear &lt;3&gt;" ActionType="NamedCallback" />
+              <Action OrderNumber="4" NamedCallbackName="command" NamedCallbackParam="/mk clear &lt;4&gt;" ActionType="NamedCallback" />
+              <Action OrderNumber="5" NamedCallbackName="command" NamedCallbackParam="/mk clear &lt;5&gt;" ActionType="NamedCallback" />
+              <Action OrderNumber="6" NamedCallbackName="command" NamedCallbackParam="/mk clear &lt;6&gt;" ActionType="NamedCallback" />
+              <Action OrderNumber="7" NamedCallbackName="command" NamedCallbackParam="/mk clear &lt;7&gt;" ActionType="NamedCallback" />
+              <Action OrderNumber="8" NamedCallbackName="command" NamedCallbackParam="/mk clear &lt;8&gt;" ActionType="NamedCallback" />
+            </Actions>
+          </Trigger>
+          <Trigger Enabled="true" Name="默语发送小队顺位" Id="2fc1125f-400b-4033-83e4-6d46a189263f" RegularExpression="">
+            <Actions>
+              <Action OrderNumber="1" NamedCallbackName="command" NamedCallbackParam="/e 小队顺序：   &#xD;&#xA;MT:[${lvar:pname[1]}]&#xD;&#xA;ST:[${lvar:pname[2]}]&#xD;&#xA;H1:[${lvar:pname[7]}]&#xD;&#xA;H2:[${lvar:pname[8]}]&#xD;&#xA;D1:[${lvar:pname[3]}]&#xD;&#xA;D2:[${lvar:pname[4]}]&#xD;&#xA;D3:[${lvar:pname[5]}]&#xD;&#xA;D4:[${lvar:pname[6]}]&#xD;&#xA;&lt;se.1&gt;&#xD;&#xA;" ActionType="NamedCallback" />
+            </Actions>
+          </Trigger>
+        </Triggers>
+      </Folder>
+      <Folder Id="944e998c-9df9-4877-b6ff-7328600a48df" Name="1.使用必读！！不读用不了！！！" Enabled="true">
+        <Folders />
+        <Triggers>
+          <Trigger Enabled="true" Name="右键编辑 点击最右边的描述查看使用说明（不看也行）" Id="9d15f0fb-2886-4e51-8013-b18828972b8e" RegularExpression="" Description="进本后查看act弹窗，通过鼠标拖动职业排序，点击保存即可配置完毕。&#xD;&#xA;&#xD;&#xA;2024.11.8第一版：&#xD;&#xA;使用了mlm的初始化方式，有些繁琐，并且无法兼容国际服。&#xD;&#xA;&#xD;&#xA;2024.11.26更新：&#xD;&#xA;使用了阿洛最新的小队配置UI工具，不需要再游戏里面调整顺位了，同时也兼容了国际服。&#xD;&#xA;为兼容国际服：&#xD;&#xA;1.修改了正则表达式，由判断“花岗岩牢狱”改为了判断两个技能id。&#xD;&#xA;2.使用了玩家id替代玩家名称。&#xD;&#xA;&#xD;&#xA;by凛子&#xD;&#xA;祝您游戏愉快，问题反馈QQ：2040296883">
+            <Actions />
+          </Trigger>
+          <Trigger Enabled="true" Name="1.本科技必需有阿洛的小队配置工具以及鲶鱼精邮差才能使用！！！！！！！" Id="64e7fea8-e947-49fd-a932-22c4ec30a4d4" RegularExpression="">
+            <Actions />
+          </Trigger>
+          <Trigger Enabled="true" Name="4.B站关注 洛可利亚奏鸣曲 谢谢喵" Id="c1fdfb0d-3ba4-411b-aa85-d4bec5713436" RegularExpression="">
+            <Actions />
+          </Trigger>
+          <Trigger Enabled="true" Name="3.打开 https://www.123pan.com/s/1xRXjv-340BH.html 即可下载" Id="4bbe253f-932d-4350-a71a-d103cba2be7c" RegularExpression="" Description="https://www.123pan.com/s/1xRXjv-340BH.html">
+            <Actions />
+          </Trigger>
+          <Trigger Enabled="true" Name="2.推荐使用阿洛网盘中的的 “一键安装更新触发器/PostNamazu.exe” 来安装" Id="997b2372-c0eb-4a27-bc47-6fa28fe687cd" RegularExpression="">
+            <Actions />
+          </Trigger>
+          <Trigger Enabled="true" Name="5.全队标记三连桶 和 手摇自己三连桶 不能重复开。大多数情况开全队标记就好 手摇装绿玩用吧" Id="f2584cde-1b5f-4303-a516-9c4e52caa813" RegularExpression="">
+            <Actions />
+          </Trigger>
+        </Triggers>
+      </Folder>
+      <Folder Id="a4b8e0ae-f8b6-44c3-862c-57c9fc1db67a" Name="自动手摇自己三连桶" Enabled="false">
+        <Folders />
+        <Triggers>
+          <Trigger Enabled="true" Name="标记自己" Id="4b39905d-05b1-4c4c-a5db-206fa4a3fd08" RegularExpression="">
+            <Actions>
+              <Action OrderNumber="1" NamedCallbackName="command" NamedCallbackParam="/mk attack &lt;me&gt;" ActionType="NamedCallback" />
+            </Actions>
+            <Condition Enabled="true" Grouping="Or">
+              <ConditionSingle Enabled="true" ExpressionL="${pid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+            </Condition>
+          </Trigger>
+          <Trigger Enabled="true" Name="桶计数" Id="3a61cbb8-b1fe-43b6-9884-e5933a8109c2" RegularExpression="^.{14} \S* 15:.{8}:[^:]*:(2B6C|2B6B):[^:]*:(?&lt;pid&gt;[^:]*)">
+            <Actions>
+              <Action OrderNumber="1" VariableOp="SetNumeric" VariableName="桶点自己" VariableExpression="1" ActionType="Variable" Asynchronous="False">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${pid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="2" VariableOp="Increment" VariableName="桶计数" VariableExpression="1" ActionType="Variable" Asynchronous="False" />
+              <Action OrderNumber="3" VariableOp="SetNumeric" VariableName="桶点自己" VariableExpression="1" TriggerId="4b39905d-05b1-4c4c-a5db-206fa4a3fd08" TriggerForce="regexp,conditions" ActionType="Trigger" Asynchronous="False">
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${var:桶点自己}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                  <ConditionSingle Enabled="true" ExpressionL="${var:桶计数}" ExpressionTypeL="Numeric" ExpressionR="3" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                </Condition>
+              </Action>
+            </Actions>
+          </Trigger>
+        </Triggers>
+      </Folder>
+      <Folder Id="0094762b-4b8e-4583-a740-8a315e0b6918" Name="自动全队标记三连桶" Enabled="true">
+        <Folders />
+        <Triggers>
+          <Trigger Enabled="true" Name="处理点名" Id="b846cf7a-59fa-428f-97a6-0d8dd01a0db6" RegularExpression="">
+            <Actions>
+              <Action OrderNumber="1" ListVariableOp="SortByKeys" ListVariableName="三连桶列表" ListVariableExpression="s+:${lvar:party.indexof(${_this})}" ActionType="ListVariable" Asynchronous="False" />
+              <Action OrderNumber="2" NamedCallbackName="mark" NamedCallbackParam="{&#xD;&#xA;  &quot;ActorID&quot;: 0x${lvar:三连桶列表[1]},&#xD;&#xA;  &quot;MarkType&quot;: &quot;attack1&quot;,&#xD;&#xA;  &quot;LocalOnly&quot;: false &#xD;&#xA;}" VariableOp="SetString" VariableName="MT_桶" VariableExpression="1" ActionType="NamedCallback" Asynchronous="False" />
+              <Action OrderNumber="3" NamedCallbackName="mark" NamedCallbackParam="{&#xD;&#xA;  &quot;ActorID&quot;: 0x${lvar:三连桶列表[2]},&#xD;&#xA;  &quot;MarkType&quot;: &quot;attack2&quot;,&#xD;&#xA;  &quot;LocalOnly&quot;: false &#xD;&#xA;}" VariableOp="SetString" VariableName="MT_桶" VariableExpression="1" ActionType="NamedCallback" Asynchronous="False" />
+              <Action OrderNumber="4" NamedCallbackName="mark" NamedCallbackParam="{&#xD;&#xA;  &quot;ActorID&quot;: 0x${lvar:三连桶列表[3]},&#xD;&#xA;  &quot;MarkType&quot;: &quot;attack3&quot;,&#xD;&#xA;  &quot;LocalOnly&quot;: false &#xD;&#xA;}" VariableOp="SetString" VariableName="MT_桶" VariableExpression="1" ActionType="NamedCallback" Asynchronous="False" />
+              <Action OrderNumber="5" TriggerId="8d8982c1-3377-4a5a-a652-389b9530f0b4" TriggerForce="regexp,conditions" ActionType="Trigger" ExecutionDelayExpression="20000" Asynchronous="False" />
+            </Actions>
+          </Trigger>
+          <Trigger Enabled="true" Name="获取点名" Id="850c02f6-9387-456d-aa56-77acaddb4378" RegularExpression="^.{14} \S* 15:.{8}:[^:]*:(2B6C|2B6B):[^:]*:(?&lt;pid&gt;[^:]*)">
+            <Actions>
+              <Action OrderNumber="1" VariableOp="Increment" VariableName="桶计数" VariableExpression="1" ActionType="Variable" Asynchronous="False" />
+              <Action OrderNumber="2" ListVariableOp="Set" ListVariableName="三连桶列表" ListVariableExpression="${pid}" ListVariableIndex="${var:桶计数}" VariableOp="SetString" VariableName="MT_桶" VariableExpression="1" ActionType="ListVariable" Asynchronous="False">
+                <Condition Enabled="false" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${Name}" ExpressionTypeL="String" ExpressionR="${var:MT_Name}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="3" TriggerId="b846cf7a-59fa-428f-97a6-0d8dd01a0db6" TriggerForce="regexp" ActionType="Trigger" Asynchronous="False">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${var:桶计数}" ExpressionTypeL="Numeric" ExpressionR="3" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                </Condition>
+              </Action>
+            </Actions>
+          </Trigger>
+          <Trigger Enabled="true" Name="清除标点" Id="8d8982c1-3377-4a5a-a652-389b9530f0b4" RegularExpression="">
+            <Actions>
+              <Action OrderNumber="1" NamedCallbackName="command" NamedCallbackParam="/mk attack1 &lt;attack1&gt;" ActionType="NamedCallback" />
+              <Action OrderNumber="2" NamedCallbackName="command" NamedCallbackParam="/mk attack2 &lt;attack2&gt;" ActionType="NamedCallback" />
+              <Action OrderNumber="3" NamedCallbackName="command" NamedCallbackParam="/mk attack3 &lt;attack3&gt;" ActionType="NamedCallback" />
+            </Actions>
+          </Trigger>
+        </Triggers>
+      </Folder>
+    </Folders>
+    <Triggers>
+      <Trigger Enabled="true" Name="团灭初始化" Id="4c67430d-a0f0-4429-b1bc-fc1a901af2eb" RegularExpression="^.{14} (?:\w+ )21:.{8}:400000(03|1[026]|05)|任务结束了。|has ended\.|の攻略を終了した。">
+        <Actions>
+          <Action OrderNumber="1" VariableOp="SetNumeric" VariableName="桶计数" VariableExpression="0" ActionType="Variable" />
+          <Action OrderNumber="2" VariableOp="SetNumeric" VariableName="桶点自己" VariableExpression="0" ActionType="Variable" />
+          <Action OrderNumber="3" TriggerId="8d8982c1-3377-4a5a-a652-389b9530f0b4" TriggerForce="regexp,conditions" ActionType="Trigger" />
+          <Action OrderNumber="4" ListVariableName="三连桶列表" ActionType="ListVariable" />
+        </Actions>
+      </Trigger>
+      <Trigger Enabled="true" Name="标记测试（请保存配置之后再执行）" Id="2b4b374a-c0c5-4dd3-bf02-95062731aa96" RegularExpression="">
+        <Actions>
+          <Action OrderNumber="1" NamedCallbackName="mark" NamedCallbackParam="{&#xD;&#xA;  &quot;ActorID&quot;: 0x${lvar:party[1]},&#xD;&#xA;  &quot;MarkType&quot;: &quot;stop1&quot;,&#xD;&#xA;  &quot;LocalOnly&quot;: false &#xD;&#xA;}" VariableOp="SetString" VariableName="MT_桶" VariableExpression="1" ActionType="NamedCallback">
+            <Condition Enabled="false" Grouping="Or">
+              <ConditionSingle Enabled="true" ExpressionL="${var:MT_桶}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+            </Condition>
+          </Action>
+          <Action OrderNumber="2" NamedCallbackName="mark" NamedCallbackParam="{&#xD;&#xA;  &quot;ActorID&quot;: 0x${lvar:party[2]},&#xD;&#xA;  &quot;MarkType&quot;: &quot;stop2&quot;,&#xD;&#xA;  &quot;LocalOnly&quot;: false &#xD;&#xA;}" VariableOp="SetString" VariableName="MT_桶" VariableExpression="1" ActionType="NamedCallback">
+            <Condition Enabled="false" Grouping="Or">
+              <ConditionSingle Enabled="true" ExpressionL="${var:MT_桶}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+            </Condition>
+          </Action>
+          <Action OrderNumber="3" NamedCallbackName="mark" NamedCallbackParam="{&#xD;&#xA;  &quot;ActorID&quot;: 0x${lvar:party[7]},&#xD;&#xA;  &quot;MarkType&quot;: &quot;bind1&quot;,&#xD;&#xA;  &quot;LocalOnly&quot;: false &#xD;&#xA;}" VariableOp="SetString" VariableName="MT_桶" VariableExpression="1" ActionType="NamedCallback">
+            <Condition Enabled="false" Grouping="Or">
+              <ConditionSingle Enabled="true" ExpressionL="${var:MT_桶}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+            </Condition>
+          </Action>
+          <Action OrderNumber="4" NamedCallbackName="mark" NamedCallbackParam="{&#xD;&#xA;  &quot;ActorID&quot;: 0x${lvar:party[8]},&#xD;&#xA;  &quot;MarkType&quot;: &quot;bind2&quot;,&#xD;&#xA;  &quot;LocalOnly&quot;: false &#xD;&#xA;}" VariableOp="SetString" VariableName="MT_桶" VariableExpression="1" ActionType="NamedCallback">
+            <Condition Enabled="false" Grouping="Or">
+              <ConditionSingle Enabled="true" ExpressionL="${var:MT_桶}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+            </Condition>
+          </Action>
+          <Action OrderNumber="5" NamedCallbackName="mark" NamedCallbackParam="{&#xD;&#xA;  &quot;ActorID&quot;: 0x${lvar:party[3]},&#xD;&#xA;  &quot;MarkType&quot;: &quot;attack1&quot;,&#xD;&#xA;  &quot;LocalOnly&quot;: false &#xD;&#xA;}" VariableOp="SetString" VariableName="MT_桶" VariableExpression="1" ActionType="NamedCallback">
+            <Condition Enabled="false" Grouping="Or">
+              <ConditionSingle Enabled="true" ExpressionL="${var:MT_桶}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+            </Condition>
+          </Action>
+          <Action OrderNumber="6" NamedCallbackName="mark" NamedCallbackParam="{&#xD;&#xA;  &quot;ActorID&quot;: 0x${lvar:party[4]},&#xD;&#xA;  &quot;MarkType&quot;: &quot;attack2&quot;,&#xD;&#xA;  &quot;LocalOnly&quot;: false &#xD;&#xA;}" VariableOp="SetString" VariableName="MT_桶" VariableExpression="1" ActionType="NamedCallback">
+            <Condition Enabled="false" Grouping="Or">
+              <ConditionSingle Enabled="true" ExpressionL="${var:MT_桶}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+            </Condition>
+          </Action>
+          <Action OrderNumber="7" NamedCallbackName="mark" NamedCallbackParam="{&#xD;&#xA;  &quot;ActorID&quot;: 0x${lvar:party[5]},&#xD;&#xA;  &quot;MarkType&quot;: &quot;attack3&quot;,&#xD;&#xA;  &quot;LocalOnly&quot;: false &#xD;&#xA;}" VariableOp="SetString" VariableName="MT_桶" VariableExpression="1" ActionType="NamedCallback">
+            <Condition Enabled="false" Grouping="Or">
+              <ConditionSingle Enabled="true" ExpressionL="${var:MT_桶}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+            </Condition>
+          </Action>
+          <Action OrderNumber="8" NamedCallbackName="mark" NamedCallbackParam="{&#xD;&#xA;  &quot;ActorID&quot;: 0x${lvar:party[6]},&#xD;&#xA;  &quot;MarkType&quot;: &quot;attack4&quot;,&#xD;&#xA;  &quot;LocalOnly&quot;: false &#xD;&#xA;}" VariableOp="SetString" VariableName="MT_桶" VariableExpression="1" ActionType="NamedCallback">
+            <Condition Enabled="false" Grouping="Or">
+              <ConditionSingle Enabled="true" ExpressionL="${var:MT_桶}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+            </Condition>
+          </Action>
+          <Action OrderNumber="9" TriggerId="2fc1125f-400b-4033-83e4-6d46a189263f" TriggerForce="regexp,conditions" ActionType="Trigger" />
+          <Action OrderNumber="10" TriggerId="59c774b9-0024-4e6b-a934-43be93cef011" TriggerForce="regexp,conditions" ActionType="Trigger" ExecutionDelayExpression="10000" />
+        </Actions>
+      </Trigger>
+    </Triggers>
+  </ExportedFolder>
+</TriggernometryExport>
