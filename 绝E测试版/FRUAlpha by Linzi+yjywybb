@@ -1,15 +1,10 @@
 <?xml version="1.0"?>
 <TriggernometryExport PluginVersion="1.2.0.718">
-  <ExportedFolder FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1238$" Id="8a15164e-498b-4835-8bfd-78b494f409e9" Name="绝伊甸触发器4.0 by凛子+yjywybb" Enabled="true">
+  <ExportedFolder FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1238$" Id="8a15164e-498b-4835-8bfd-78b494f409e9" Name="绝伊甸触发器5.0 by凛子+yjywybb" Enabled="true">
     <Folders>
       <Folder Id="6c9516a4-3b1a-4536-94b4-969a766c76f6" Name="小队初始化" Enabled="true">
         <Folders />
         <Triggers>
-          <Trigger Enabled="true" Name="默语发送小队顺位（debug用）" Id="b0f9dc6e-3d8e-4fbd-ab72-137fabed3ce6" RegularExpression="">
-            <Actions>
-              <Action OrderNumber="1" NamedCallbackName="command" NamedCallbackParam="/e 小队顺序：   &#xD;&#xA;MT:[${lvar:pname[1]}]&#xD;&#xA;ST:[${lvar:pname[2]}]&#xD;&#xA;H1:[${lvar:pname[7]}]&#xD;&#xA;H2:[${lvar:pname[8]}]&#xD;&#xA;D1:[${lvar:pname[3]}]&#xD;&#xA;D2:[${lvar:pname[4]}]&#xD;&#xA;D3:[${lvar:pname[5]}]&#xD;&#xA;D4:[${lvar:pname[6]}]&#xD;&#xA;&lt;se.1&gt;&#xD;&#xA;" ActionType="NamedCallback" />
-            </Actions>
-          </Trigger>
           <Trigger Enabled="true" Name="进本弹出阿洛的小队框架配置窗口" Id="81f91559-49b8-4bac-a0b7-1702d064677f" RegularExpression="^.{15}\S+ 01:(?&lt;zoneId&gt;[^:]*):">
             <Actions>
               <Action OrderNumber="1" LogMessageText="PartyList:Register:${n: 0x${zoneId} }:MT, ST, H1, H2, D1, D2, D3, D4" LogProcess="True" ActionType="LogMessage" />
@@ -60,6 +55,11 @@
               <Action OrderNumber="7" NamedCallbackName="mark" NamedCallbackParam="{&quot;ActorID&quot;: 0xE000000,&quot;MarkType&quot;: &quot;attack2&quot;,&quot;LocalOnly&quot;: ${var:凛绝eLocalOnly}}" ActionType="NamedCallback" ExecutionDelayExpression="50" />
               <Action OrderNumber="8" NamedCallbackName="mark" NamedCallbackParam="{&quot;ActorID&quot;: 0xE000000,&quot;MarkType&quot;: &quot;attack3&quot;,&quot;LocalOnly&quot;: ${var:凛绝eLocalOnly}}" ActionType="NamedCallback" ExecutionDelayExpression="50" />
               <Action OrderNumber="9" NamedCallbackName="mark" NamedCallbackParam="{&quot;ActorID&quot;: 0xE000000,&quot;MarkType&quot;: &quot;attack4&quot;,&quot;LocalOnly&quot;: ${var:凛绝eLocalOnly}}" ActionType="NamedCallback" ExecutionDelayExpression="50" />
+            </Actions>
+          </Trigger>
+          <Trigger Enabled="true" Name="默语发送小队顺位（debug用）" Id="b0f9dc6e-3d8e-4fbd-ab72-137fabed3ce6" RegularExpression="">
+            <Actions>
+              <Action OrderNumber="1" NamedCallbackName="command" NamedCallbackParam="/e 小队顺序：   &#xD;&#xA;MT:[${lvar:pname[1]}]&#xD;&#xA;ST:[${lvar:pname[2]}]&#xD;&#xA;H1:[${lvar:pname[7]}]&#xD;&#xA;H2:[${lvar:pname[8]}]&#xD;&#xA;D1:[${lvar:pname[3]}]&#xD;&#xA;D2:[${lvar:pname[4]}]&#xD;&#xA;D3:[${lvar:pname[5]}]&#xD;&#xA;D4:[${lvar:pname[6]}]&#xD;&#xA;&lt;se.1&gt;&#xD;&#xA;" ActionType="NamedCallback" />
             </Actions>
           </Trigger>
         </Triggers>
@@ -210,7 +210,7 @@
                           <ConditionSingle Enabled="true" ExpressionL="${lvar:party.indexof(${lvar:P1分摊组[2]})}" ExpressionTypeL="Numeric" ExpressionR="4" ExpressionTypeR="Numeric" ConditionType="NumericLessEqual" />
                         </Condition>
                       </Action>
-                      <Action OrderNumber="7" NamedCallbackName="command" NamedCallbackParam="/${var:凛绝eCmode} D3去上TN組補位&lt;se.7&gt;" UseTTSTextExpression="D3去上半梯奶组补位" UseTTSVolumeExpression="" VariableOp="SetString" VariableName="补位状态" VariableExpression="D3补位" ActionType="NamedCallback" Asynchronous="False">
+                      <Action OrderNumber="7" NamedCallbackName="command" NamedCallbackParam="/${var:凛绝eCmode} D1/3去上TN組補位&lt;se.7&gt;" UseTTSTextExpression="D3去上半梯奶组补位" UseTTSVolumeExpression="" VariableOp="SetString" VariableName="补位状态" VariableExpression="D3补位" ActionType="NamedCallback" Asynchronous="False">
                         <Condition Enabled="true" Grouping="And">
                           <ConditionSingle Enabled="true" ExpressionL="${lvar:party.indexof(${lvar:P1分摊组[1]})}" ExpressionTypeL="Numeric" ExpressionR="4" ExpressionTypeR="Numeric" ConditionType="NumericLessEqual" />
                           <ConditionSingle Enabled="true" ExpressionL="${lvar:party.indexof(${lvar:P1分摊组[2]})}" ExpressionTypeL="Numeric" ExpressionR="4" ExpressionTypeR="Numeric" ConditionType="NumericLessEqual" />
@@ -942,25 +942,25 @@
                   <Trigger Enabled="true" Name="1.获取+记录雷火点名id 同时标记" Id="986ca912-120e-4d02-b71a-6e70109c86a1" RegularExpression="^.{14} (?:\w+ )23:[^:]*:[^:]*:(?&lt;pid&gt;[^:]*):(?&lt;name&gt;[^:]*):[^:]*:[^:]*:(?&lt;type&gt;[^:]*)">
                     <Actions>
                       <Action OrderNumber="1" VariableOp="Increment" VariableName="抓人剑计数" VariableExpression="1" ActionType="Variable" Asynchronous="False" />
-                      <Action OrderNumber="2" NamedCallbackName="mark" NamedCallbackParam="{&#xD;&#xA;  &quot;ActorID&quot;: 0x${pid},&#xD;&#xA;  &quot;MarkType&quot;: &quot;stop1&quot;,&#xD;&#xA;  &quot;LocalOnly&quot;: ${var:凛绝eLocalOnly} &#xD;&#xA;}" Enabled="False" ActionType="NamedCallback" Asynchronous="False">
+                      <Action OrderNumber="2" NamedCallbackName="mark" NamedCallbackParam="{&#xD;&#xA;  &quot;ActorID&quot;: 0x${pid},&#xD;&#xA;  &quot;MarkType&quot;: &quot;stop1&quot;,&#xD;&#xA;  &quot;LocalOnly&quot;: ${var:凛绝eLocalOnly} &#xD;&#xA;}" ActionType="NamedCallback" Asynchronous="False">
                         <Condition Enabled="true" Grouping="And">
                           <ConditionSingle Enabled="true" ExpressionL="${var:凛绝e头标}" ExpressionTypeL="String" ExpressionR="启用" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
                           <ConditionSingle Enabled="true" ExpressionL="${var:抓人剑计数}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
                         </Condition>
                       </Action>
-                      <Action OrderNumber="3" NamedCallbackName="mark" NamedCallbackParam="{&#xD;&#xA;  &quot;ActorID&quot;: 0x${pid},&#xD;&#xA;  &quot;MarkType&quot;: &quot;stop2&quot;,&#xD;&#xA;  &quot;LocalOnly&quot;: ${var:凛绝eLocalOnly} &#xD;&#xA;}" Enabled="False" ActionType="NamedCallback" Asynchronous="False">
+                      <Action OrderNumber="3" NamedCallbackName="mark" NamedCallbackParam="{&#xD;&#xA;  &quot;ActorID&quot;: 0x${pid},&#xD;&#xA;  &quot;MarkType&quot;: &quot;stop2&quot;,&#xD;&#xA;  &quot;LocalOnly&quot;: ${var:凛绝eLocalOnly} &#xD;&#xA;}" ActionType="NamedCallback" Asynchronous="False">
                         <Condition Enabled="true" Grouping="And">
                           <ConditionSingle Enabled="true" ExpressionL="${var:凛绝e头标}" ExpressionTypeL="String" ExpressionR="启用" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
                           <ConditionSingle Enabled="true" ExpressionL="${var:抓人剑计数}" ExpressionTypeL="Numeric" ExpressionR="3" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
                         </Condition>
                       </Action>
-                      <Action OrderNumber="4" NamedCallbackName="mark" NamedCallbackParam="{&#xD;&#xA;  &quot;ActorID&quot;: 0x${pid},&#xD;&#xA;  &quot;MarkType&quot;: &quot;bind1&quot;,&#xD;&#xA;  &quot;LocalOnly&quot;: ${var:凛绝eLocalOnly} &#xD;&#xA;}" Enabled="False" ActionType="NamedCallback" Asynchronous="False">
+                      <Action OrderNumber="4" NamedCallbackName="mark" NamedCallbackParam="{&#xD;&#xA;  &quot;ActorID&quot;: 0x${pid},&#xD;&#xA;  &quot;MarkType&quot;: &quot;bind1&quot;,&#xD;&#xA;  &quot;LocalOnly&quot;: ${var:凛绝eLocalOnly} &#xD;&#xA;}" ActionType="NamedCallback" Asynchronous="False">
                         <Condition Enabled="true" Grouping="And">
                           <ConditionSingle Enabled="true" ExpressionL="${var:凛绝e头标}" ExpressionTypeL="String" ExpressionR="启用" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
                           <ConditionSingle Enabled="true" ExpressionL="${var:抓人剑计数}" ExpressionTypeL="Numeric" ExpressionR="2" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
                         </Condition>
                       </Action>
-                      <Action OrderNumber="5" NamedCallbackName="mark" NamedCallbackParam="{&#xD;&#xA;  &quot;ActorID&quot;: 0x${pid},&#xD;&#xA;  &quot;MarkType&quot;: &quot;bind2&quot;,&#xD;&#xA;  &quot;LocalOnly&quot;: ${var:凛绝eLocalOnly} &#xD;&#xA;}" Enabled="False" ActionType="NamedCallback" Asynchronous="False">
+                      <Action OrderNumber="5" NamedCallbackName="mark" NamedCallbackParam="{&#xD;&#xA;  &quot;ActorID&quot;: 0x${pid},&#xD;&#xA;  &quot;MarkType&quot;: &quot;bind2&quot;,&#xD;&#xA;  &quot;LocalOnly&quot;: ${var:凛绝eLocalOnly} &#xD;&#xA;}" ActionType="NamedCallback" Asynchronous="False">
                         <Condition Enabled="true" Grouping="And">
                           <ConditionSingle Enabled="true" ExpressionL="${var:凛绝e头标}" ExpressionTypeL="String" ExpressionR="启用" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
                           <ConditionSingle Enabled="true" ExpressionL="${var:抓人剑计数}" ExpressionTypeL="Numeric" ExpressionR="4" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
@@ -1018,22 +1018,22 @@
                           <ConditionSingle Enabled="true" ExpressionL="${var:P1抓人剑闲人顺位}" ExpressionTypeL="String" ExpressionR="MGL" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
                         </Condition>
                       </Action>
-                      <Action OrderNumber="4" NamedCallbackName="mark" NamedCallbackParam="{&#xD;&#xA;  &quot;ActorID&quot;: 0x${lvar:P1抓人剑初始列表[5]},&#xD;&#xA;  &quot;MarkType&quot;: &quot;attack1&quot;,&#xD;&#xA;  &quot;LocalOnly&quot;: ${var:凛绝eLocalOnly} &#xD;&#xA;}" Enabled="False" ActionType="NamedCallback" ExecutionDelayExpression="30" Asynchronous="False">
+                      <Action OrderNumber="4" NamedCallbackName="mark" NamedCallbackParam="{&#xD;&#xA;  &quot;ActorID&quot;: 0x${lvar:P1抓人剑初始列表[5]},&#xD;&#xA;  &quot;MarkType&quot;: &quot;attack1&quot;,&#xD;&#xA;  &quot;LocalOnly&quot;: ${var:凛绝eLocalOnly} &#xD;&#xA;}" ActionType="NamedCallback" ExecutionDelayExpression="30" Asynchronous="False">
                         <Condition Enabled="true" Grouping="And">
                           <ConditionSingle Enabled="true" ExpressionL="${var:凛绝e头标}" ExpressionTypeL="String" ExpressionR="启用" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
                         </Condition>
                       </Action>
-                      <Action OrderNumber="5" NamedCallbackName="mark" NamedCallbackParam="{&#xD;&#xA;  &quot;ActorID&quot;: 0x${lvar:P1抓人剑初始列表[6]},&#xD;&#xA;  &quot;MarkType&quot;: &quot;attack2&quot;,&#xD;&#xA;  &quot;LocalOnly&quot;: ${var:凛绝eLocalOnly} &#xD;&#xA;}" Enabled="False" ActionType="NamedCallback" ExecutionDelayExpression="30" Asynchronous="False">
+                      <Action OrderNumber="5" NamedCallbackName="mark" NamedCallbackParam="{&#xD;&#xA;  &quot;ActorID&quot;: 0x${lvar:P1抓人剑初始列表[6]},&#xD;&#xA;  &quot;MarkType&quot;: &quot;attack2&quot;,&#xD;&#xA;  &quot;LocalOnly&quot;: ${var:凛绝eLocalOnly} &#xD;&#xA;}" ActionType="NamedCallback" ExecutionDelayExpression="30" Asynchronous="False">
                         <Condition Enabled="true" Grouping="And">
                           <ConditionSingle Enabled="true" ExpressionL="${var:凛绝e头标}" ExpressionTypeL="String" ExpressionR="启用" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
                         </Condition>
                       </Action>
-                      <Action OrderNumber="6" NamedCallbackName="mark" NamedCallbackParam="{&#xD;&#xA;  &quot;ActorID&quot;: 0x${lvar:P1抓人剑初始列表[7]},&#xD;&#xA;  &quot;MarkType&quot;: &quot;attack3&quot;,&#xD;&#xA;  &quot;LocalOnly&quot;: ${var:凛绝eLocalOnly} &#xD;&#xA;}" Enabled="False" ActionType="NamedCallback" ExecutionDelayExpression="30" Asynchronous="False">
+                      <Action OrderNumber="6" NamedCallbackName="mark" NamedCallbackParam="{&#xD;&#xA;  &quot;ActorID&quot;: 0x${lvar:P1抓人剑初始列表[7]},&#xD;&#xA;  &quot;MarkType&quot;: &quot;attack3&quot;,&#xD;&#xA;  &quot;LocalOnly&quot;: ${var:凛绝eLocalOnly} &#xD;&#xA;}" ActionType="NamedCallback" ExecutionDelayExpression="30" Asynchronous="False">
                         <Condition Enabled="true" Grouping="And">
                           <ConditionSingle Enabled="true" ExpressionL="${var:凛绝e头标}" ExpressionTypeL="String" ExpressionR="启用" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
                         </Condition>
                       </Action>
-                      <Action OrderNumber="7" NamedCallbackName="mark" NamedCallbackParam="{&#xD;&#xA;  &quot;ActorID&quot;: 0x${lvar:P1抓人剑初始列表[8]},&#xD;&#xA;  &quot;MarkType&quot;: &quot;attack4&quot;,&#xD;&#xA;  &quot;LocalOnly&quot;: ${var:凛绝eLocalOnly} &#xD;&#xA;}" Enabled="False" ActionType="NamedCallback" ExecutionDelayExpression="30" Asynchronous="False">
+                      <Action OrderNumber="7" NamedCallbackName="mark" NamedCallbackParam="{&#xD;&#xA;  &quot;ActorID&quot;: 0x${lvar:P1抓人剑初始列表[8]},&#xD;&#xA;  &quot;MarkType&quot;: &quot;attack4&quot;,&#xD;&#xA;  &quot;LocalOnly&quot;: ${var:凛绝eLocalOnly} &#xD;&#xA;}" ActionType="NamedCallback" ExecutionDelayExpression="30" Asynchronous="False">
                         <Condition Enabled="true" Grouping="And">
                           <ConditionSingle Enabled="true" ExpressionL="${var:凛绝e头标}" ExpressionTypeL="String" ExpressionR="启用" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
                         </Condition>
@@ -1190,7 +1190,7 @@
               </Trigger>
             </Triggers>
           </Folder>
-          <Folder Id="3f9b8d33-1355-4a1e-b965-c5c5d7ff967f" Name="5.踩塔 by yjwybb" Enabled="true">
+          <Folder Id="3f9b8d33-1355-4a1e-b965-c5c5d7ff967f" Name="5.踩塔 by yjwybb" Enabled="false">
             <Folders>
               <Folder Id="bc933b6d-5cdd-40a8-a045-b2e4937c3251" Name="小学数学" Enabled="true">
                 <Folders>
@@ -1426,7 +1426,7 @@
       <Folder Id="5922e586-8cc0-4a5f-ac7d-1faf9dd645a9" Name="指挥/本地设置（进本之后先右键执行）" Enabled="true">
         <Folders />
         <Triggers>
-          <Trigger Enabled="true" Name="B.指挥模式" Id="30038872-a975-411c-b3d9-555aa63a5b86" RegularExpression="^.{15}\S+ 01:(?&lt;zoneId&gt;[^:]*):">
+          <Trigger Enabled="false" Name="B.指挥模式" Id="30038872-a975-411c-b3d9-555aa63a5b86" RegularExpression="^.{15}\S+ 01:(?&lt;zoneId&gt;[^:]*):">
             <Actions>
               <Action OrderNumber="1" VariableOp="SetString" VariableName="凛绝eLocalOnly" VariableExpression="false" ActionType="Variable" Asynchronous="False" />
               <Action OrderNumber="2" VariableOp="SetString" VariableName="凛绝eCmode" VariableExpression="p" ActionType="Variable" Asynchronous="False" />
@@ -1443,19 +1443,13 @@
               <Action OrderNumber="2" VariableOp="SetString" VariableName="凛绝e头标" VariableExpression="关闭" Enabled="False" ActionType="Variable" />
             </Actions>
           </Trigger>
-          <Trigger Enabled="true" Name="X.双击设置P1抓人剑闲人顺位（启用/关闭最左侧的选项）" Id="1021e592-bbe7-41fe-9d36-c331992f8226" RegularExpression="^.{15}\S+ 01:(?&lt;zoneId&gt;[^:]*):">
-            <Actions>
-              <Action OrderNumber="1" VariableOp="SetString" VariableName="P1抓人剑闲人顺位" VariableExpression="MGL" ActionType="Variable" />
-              <Action OrderNumber="2" VariableOp="SetString" VariableName="P1抓人剑闲人顺位" VariableExpression="MMW" Enabled="False" ActionType="Variable" />
-            </Actions>
-          </Trigger>
           <Trigger Enabled="true" Name="X.双击设置P1分摊组分组方式（启用/关闭最左侧的选项）" Id="2ca6f329-4087-48e2-b559-580428d63862" RegularExpression="^.{15}\S+ 01:(?&lt;zoneId&gt;[^:]*):">
             <Actions>
               <Action OrderNumber="1" VariableOp="SetString" VariableName="P1分摊分组方式" VariableExpression="MTST组" Enabled="False" ActionType="Variable" />
               <Action OrderNumber="2" VariableOp="SetString" VariableName="P1分摊分组方式" VariableExpression="TNDPS组" ActionType="Variable" />
             </Actions>
           </Trigger>
-          <Trigger Enabled="false" Name="A.本地模式" Id="edc3747d-8eb9-4f36-b4f4-e9ac8dff751c" RegularExpression="^.{15}\S+ 01:(?&lt;zoneId&gt;[^:]*):">
+          <Trigger Enabled="true" Name="A.本地模式" Id="edc3747d-8eb9-4f36-b4f4-e9ac8dff751c" RegularExpression="^.{15}\S+ 01:(?&lt;zoneId&gt;[^:]*):">
             <Actions>
               <Action OrderNumber="1" VariableOp="SetString" VariableName="凛绝eLocalOnly" VariableExpression="true" ActionType="Variable" Asynchronous="False" />
               <Action OrderNumber="2" VariableOp="SetString" VariableName="凛绝eCmode" VariableExpression="e" ActionType="Variable" Asynchronous="False" />
@@ -1476,6 +1470,18 @@
             <Actions>
               <Action OrderNumber="1" VariableOp="SetString" VariableName="凛绝e本地标点" VariableExpression="开启" ActionType="Variable" />
               <Action OrderNumber="2" VariableOp="SetString" VariableName="凛绝e本地标点" VariableExpression="关闭" Enabled="False" ActionType="Variable" />
+            </Actions>
+          </Trigger>
+          <Trigger Enabled="true" Name="X.双击设置P4二运死宣标记方式（启用/关闭最左侧的选项）" Id="1021e592-bbe7-41fe-9d36-c331992f8226" RegularExpression="^.{15}\S+ 01:(?&lt;zoneId&gt;[^:]*):">
+            <Actions>
+              <Action OrderNumber="1" VariableOp="SetString" VariableName="二运死宣标记方式" VariableExpression="1D2B3344" Enabled="False" ActionType="Variable" />
+              <Action OrderNumber="2" VariableOp="SetString" VariableName="二运死宣标记方式" VariableExpression="暗1土2水3冰4" ActionType="Variable" />
+            </Actions>
+          </Trigger>
+          <Trigger Enabled="true" Name="X.双击设置P1抓人剑闲人顺位（启用/关闭最左侧的选项）" Id="f9957011-257e-401e-ae4a-58c4dfb8f0ba" RegularExpression="^.{15}\S+ 01:(?&lt;zoneId&gt;[^:]*):">
+            <Actions>
+              <Action OrderNumber="1" VariableOp="SetString" VariableName="P1抓人剑闲人顺位" VariableExpression="MGL" ActionType="Variable" />
+              <Action OrderNumber="2" VariableOp="SetString" VariableName="P1抓人剑闲人顺位" VariableExpression="MMW" Enabled="False" ActionType="Variable" />
             </Actions>
           </Trigger>
         </Triggers>
@@ -1506,6 +1512,9 @@
               <Action OrderNumber="7" ListVariableOp="Set" ListVariableName="MTST组列表" ListVariableExpression="${lvar:party[4]}" ListVariableIndex="6" ActionType="ListVariable" />
               <Action OrderNumber="8" ListVariableOp="Set" ListVariableName="MTST组列表" ListVariableExpression="${lvar:party[6]}" ListVariableIndex="7" ActionType="ListVariable" />
               <Action OrderNumber="9" ListVariableOp="Set" ListVariableName="MTST组列表" ListVariableExpression="${lvar:party[8]}" ListVariableIndex="8" ActionType="ListVariable" />
+              <Action OrderNumber="10" ActionType="Placeholder" Description="P5" DescriptionOverride="True" />
+              <Action OrderNumber="11" ListVariableOp="Build" ListVariableExpression=",${lvar:party[1]},${lvar:party[5]},${lvar:party[7]},${lvar:party[3]}" ListVariableTarget="P5挡枪MT组" ActionType="ListVariable" />
+              <Action OrderNumber="12" ListVariableOp="Build" ListVariableExpression=",${lvar:party[2]},${lvar:party[6]},${lvar:party[8]},${lvar:party[4]}" ListVariableTarget="P5挡枪ST组" ActionType="ListVariable" />
             </Actions>
           </Trigger>
           <Trigger Enabled="true" Name="保存开场标点" Id="0afb8b6c-c535-441e-9161-5ded63af25bb" RegularExpression="^.{14} \S+ 00:0039::(?:戦闘開始！|Engage!|战斗开始！|戰鬥開始！|「絶もうひとつの未来」の攻略を開始した。)">
@@ -1549,6 +1558,11 @@
               <ConditionSingle Enabled="true" ExpressionL="${var:凛绝eCmode}" ExpressionTypeL="String" ExpressionR="p" ExpressionTypeR="String" ConditionType="StringNotEqualNocase" />
               <ConditionSingle Enabled="true" ExpressionL="${var:凛绝eCmode}" ExpressionTypeL="String" ExpressionR="e" ExpressionTypeR="String" ConditionType="StringNotEqualNocase" />
             </Condition>
+          </Trigger>
+          <Trigger Enabled="true" Name="123" Id="9d453574-2d2a-4635-ad60-c1b580cb5094" RegularExpression="">
+            <Actions>
+              <Action OrderNumber="1" NamedCallbackName="AdvWm" NamedCallbackParam="load" ActionType="NamedCallback" />
+            </Actions>
           </Trigger>
         </Triggers>
       </Folder>
@@ -1610,7 +1624,7 @@
                       </Trigger>
                       <Trigger Enabled="true" Sequential="True" Name="2.处理正北灯" Id="1698a1cf-990c-43d5-89d5-d00b38f74f12" RegularExpression="P3正北灯计算完毕">
                         <Actions>
-                          <Action OrderNumber="1" NamedCallbackName="AdvWm" NamedCallbackParam="save" ActionType="NamedCallback" Asynchronous="False" />
+                          <Action OrderNumber="1" NamedCallbackName="AdvWm" NamedCallbackParam="save" Enabled="False" ActionType="NamedCallback" Asynchronous="False" />
                           <Action OrderNumber="2" UseTTSTextExpression="正北灯在${var:P3正北灯方位}点" ActionType="UseTTS" Asynchronous="False" RefireRequeue="False" />
                           <Action OrderNumber="3" NamedCallbackName="command" NamedCallbackParam="/${var:凛绝eCmode} 正北灯在${var:P3正北灯方位}点方向&lt;se.1&gt;" ActionType="NamedCallback" Asynchronous="False" RefireRequeue="False" />
                           <Action OrderNumber="4" NamedCallbackName="AdvWm" NamedCallbackParam="Action:Place&#xD;&#xA;Center:100,100,0&#xD;&#xA;θ:${var:P3正北灯偏移角}&#xD;&#xA;3:0,0,0&#xD;&#xA;2:0,-4.5,0&#xD;&#xA;1:0,-9.5,0&#xD;&#xA;&#xD;&#xA;" ActionType="NamedCallback" Asynchronous="False" />
@@ -2223,8 +2237,10 @@
         <Triggers>
           <Trigger Enabled="true" Name="狂暴转P" Id="465e35db-bd1d-4105-9e10-304466c777ae" RegularExpression="^.{14} \S+ 14:[^:]*:[^:]*:9D6C">
             <Actions>
-              <Action OrderNumber="1" FolderOp="DisableFolder" FolderId="cf4f885f-9064-4c9b-9c95-4473b476dd85" ActionType="Folder" />
-              <Action OrderNumber="2" FolderId="0a47785e-e113-4e04-ad26-c234b42ff2a6" ActionType="Folder" />
+              <Action OrderNumber="1" FolderOp="DisableFolder" FolderId="cfff91f7-af0d-494d-a136-1786f5daa08e" TriggerId="29722a40-8ae7-4f07-ab8e-2b4b74ef145b" TriggerForce="regexp,conditions" ActionType="Trigger" />
+              <Action OrderNumber="2" FolderOp="DisableFolder" FolderId="cf4f885f-9064-4c9b-9c95-4473b476dd85" ActionType="Folder" />
+              <Action OrderNumber="3" FolderId="0a47785e-e113-4e04-ad26-c234b42ff2a6" ActionType="Folder" />
+              <Action OrderNumber="4" FolderOp="DisableFolder" FolderId="cfff91f7-af0d-494d-a136-1786f5daa08e" TriggerId="bb4102d1-402c-4cbc-b947-b75656a5ee3b" TriggerForce="regexp,conditions" ActionType="Trigger" ExecutionDelayExpression="50" />
             </Actions>
           </Trigger>
         </Triggers>
@@ -2296,7 +2312,7 @@
                   <Trigger Enabled="true" Name="6.场中塔" Id="c201d9e4-601e-4efc-a301-fed86ada30b4" RegularExpression="P2层数计数完毕" PeriodRefire="Deny" RefirePeriodExpression="2000">
                     <Actions>
                       <Action OrderNumber="1" ActionType="Placeholder" ExecutionDelayExpression="300" Description="延迟300ms" DescriptionOverride="True" />
-                      <Action OrderNumber="2" TriggerId="29722a40-8ae7-4f07-ab8e-2b4b74ef145b" TriggerForce="regexp" ActionType="Trigger" Asynchronous="False" />
+                      <Action OrderNumber="2" TriggerId="29722a40-8ae7-4f07-ab8e-2b4b74ef145b" TriggerForce="regexp" Enabled="False" ActionType="Trigger" Asynchronous="False" />
                       <Action OrderNumber="3" LogMessageText="P2场中塔:${f:slice(0:1:1):${lvar:P2光层数.indicesof(2)}}:${f:slice(2:3:1):${lvar:P2光层数.indicesof(2)}}:${f:slice(4:5:1):${lvar:P2光层数.indicesof(2)}}:${f:slice(6:7:1):${lvar:P2光层数.indicesof(2)}}" LogProcess="True" NamedCallbackName="command" NamedCallbackParam="/e P2场中塔:${f:slice(0:1:1):${lvar:P2光层数.indicesof(2)}}:${f:slice(2:3:1):${lvar:P2光层数.indicesof(2)}}:${f:slice(4:5:1):${lvar:P2光层数.indicesof(2)}}:${f:slice(6:7:1):${lvar:P2光层数.indicesof(2)}}" ActionType="LogMessage" Asynchronous="False" />
                       <Action OrderNumber="4" NamedCallbackName="command" NamedCallbackParam="/${var:凛绝eCmode}   場中塔：&#xD;&#xA;[${lvar:pname[${f:slice(0:1:1):${lvar:P2光层数.indicesof(2)}}]}]&#xD;&#xA;[${lvar:pname[${f:slice(2:3:1):${lvar:P2光层数.indicesof(2)}}]}]&#xD;&#xA;[${lvar:pname[${f:slice(4:5:1):${lvar:P2光层数.indicesof(2)}}]}]&#xD;&#xA;[${lvar:pname[${f:slice(6:7:1):${lvar:P2光层数.indicesof(2)}}]}]" ActionType="NamedCallback" Asynchronous="False" />
                       <Action OrderNumber="5" NamedCallbackName="command" UseTTSTextExpression="八方分散准备分摊或分散" ActionType="UseTTS" Asynchronous="False">
@@ -2327,7 +2343,7 @@
                       </Action>
                     </Actions>
                   </Trigger>
-                  <Trigger Enabled="true" Name="XX.场中塔标点（需要自己开）" Id="33e83c7b-8dd2-4424-b91b-c57586839fdd" RegularExpression="P2场中塔:(?&lt;P1&gt;.{1}):(?&lt;P2&gt;.{1}):(?&lt;P3&gt;.{1}):(?&lt;P4&gt;.{1})">
+                  <Trigger Enabled="true" Sequential="True" Name="XX.场中塔标点（需要自己开）" Id="33e83c7b-8dd2-4424-b91b-c57586839fdd" RegularExpression="P2场中塔:(?&lt;P1&gt;.{1}):(?&lt;P2&gt;.{1}):(?&lt;P3&gt;.{1}):(?&lt;P4&gt;.{1})">
                     <Actions>
                       <Action OrderNumber="1" LoopDelayExpression="0" LoopInitExpression="1" ActionType="Loop">
                         <LoopCondition Enabled="true" Grouping="And">
@@ -2342,12 +2358,14 @@
                   </Trigger>
                   <Trigger Enabled="true" Name="X.踩塔头标（需要自己开）" Id="697fd5c3-2ff0-46f6-99d4-ca9d516f1007" RegularExpression="P2光暴输出完成">
                     <Actions>
-                      <Action OrderNumber="1" NamedCallbackName="mark" NamedCallbackParam="{&#xD;&#xA;  &quot;ActorID&quot;: 0x${lvar:职能[${lvar:party.indexof(${lvar:P2光之失控连线列表[2]})}]}},&#xD;&#xA;  &quot;MarkType&quot;: &quot;attack1&quot;,&#xD;&#xA;  &quot;LocalOnly&quot;: ${var:凛绝eLocalOnly} &#xD;&#xA;}" ActionType="NamedCallback" ExecutionDelayExpression="30" Asynchronous="False" />
-                      <Action OrderNumber="2" NamedCallbackName="mark" NamedCallbackParam="{&#xD;&#xA;  &quot;ActorID&quot;: 0x${lvar:职能[${lvar:party.indexof(${lvar:P2光之失控连线列表[3]})}]}},&#xD;&#xA;  &quot;MarkType&quot;: &quot;attack2&quot;,&#xD;&#xA;  &quot;LocalOnly&quot;: ${var:凛绝eLocalOnly} &#xD;&#xA;}" ActionType="NamedCallback" ExecutionDelayExpression="30" Asynchronous="False" />
-                      <Action OrderNumber="3" NamedCallbackName="mark" NamedCallbackParam="{&#xD;&#xA;  &quot;ActorID&quot;: 0x${lvar:职能[${lvar:party.indexof(${lvar:P2光之失控连线列表[5]})}]}},&#xD;&#xA;  &quot;MarkType&quot;: &quot;attack3&quot;,&#xD;&#xA;  &quot;LocalOnly&quot;: ${var:凛绝eLocalOnly} &#xD;&#xA;}" ActionType="NamedCallback" ExecutionDelayExpression="30" Asynchronous="False" />
-                      <Action OrderNumber="4" NamedCallbackName="mark" NamedCallbackParam="{&#xD;&#xA;  &quot;ActorID&quot;: 0x${lvar:职能[${lvar:party.indexof(${lvar:P2光之失控连线列表[4]})}]}},&#xD;&#xA;  &quot;MarkType&quot;: &quot;attack4&quot;,&#xD;&#xA;  &quot;LocalOnly&quot;: ${var:凛绝eLocalOnly} &#xD;&#xA;}" ActionType="NamedCallback" ExecutionDelayExpression="30" Asynchronous="False" />
-                      <Action OrderNumber="5" NamedCallbackName="mark" NamedCallbackParam="{&#xD;&#xA;  &quot;ActorID&quot;: 0x${lvar:职能[${lvar:party.indexof(${lvar:P2光之失控连线列表[6]})}]}},&#xD;&#xA;  &quot;MarkType&quot;: &quot;bind1&quot;,&#xD;&#xA;  &quot;LocalOnly&quot;: ${var:凛绝eLocalOnly} &#xD;&#xA;}" ActionType="NamedCallback" ExecutionDelayExpression="30" Asynchronous="False" />
-                      <Action OrderNumber="6" NamedCallbackName="mark" NamedCallbackParam="{&#xD;&#xA;  &quot;ActorID&quot;: 0x${lvar:职能[${lvar:party.indexof(${lvar:P2光之失控连线列表[1]})}]}},&#xD;&#xA;  &quot;MarkType&quot;: &quot;bind2&quot;,&#xD;&#xA;  &quot;LocalOnly&quot;: ${var:凛绝eLocalOnly} &#xD;&#xA;}" ActionType="NamedCallback" ExecutionDelayExpression="30" Asynchronous="False" />
+                      <Action OrderNumber="1" NamedCallbackName="mark" NamedCallbackParam="{&#xD;&#xA;  &quot;ActorID&quot;: 0x${lvar:P2光之失控连线列表[2]},&#xD;&#xA;  &quot;MarkType&quot;: &quot;attack1&quot;,&#xD;&#xA;  &quot;LocalOnly&quot;: ${var:凛绝eLocalOnly} &#xD;&#xA;}" ActionType="NamedCallback" ExecutionDelayExpression="30" Asynchronous="False" />
+                      <Action OrderNumber="2" NamedCallbackName="mark" NamedCallbackParam="{&#xD;&#xA;  &quot;ActorID&quot;: 0x${lvar:P2光之失控连线列表[3]},&#xD;&#xA;  &quot;MarkType&quot;: &quot;attack2&quot;,&#xD;&#xA;  &quot;LocalOnly&quot;: ${var:凛绝eLocalOnly} &#xD;&#xA;}" ActionType="NamedCallback" ExecutionDelayExpression="30" Asynchronous="False" />
+                      <Action OrderNumber="3" NamedCallbackName="mark" NamedCallbackParam="{&#xD;&#xA;  &quot;ActorID&quot;: 0x${lvar:P2光之失控连线列表[5]},&#xD;&#xA;  &quot;MarkType&quot;: &quot;attack3&quot;,&#xD;&#xA;  &quot;LocalOnly&quot;: ${var:凛绝eLocalOnly} &#xD;&#xA;}" ActionType="NamedCallback" ExecutionDelayExpression="30" Asynchronous="False" />
+                      <Action OrderNumber="4" NamedCallbackName="mark" NamedCallbackParam="{&#xD;&#xA;  &quot;ActorID&quot;: 0x${lvar:P2光之失控连线列表[4]},&#xD;&#xA;  &quot;MarkType&quot;: &quot;attack4&quot;,&#xD;&#xA;  &quot;LocalOnly&quot;: ${var:凛绝eLocalOnly} &#xD;&#xA;}" ActionType="NamedCallback" ExecutionDelayExpression="30" Asynchronous="False" />
+                      <Action OrderNumber="5" NamedCallbackName="mark" NamedCallbackParam="{&#xD;&#xA;  &quot;ActorID&quot;: 0x${lvar:P2光之失控连线列表[6]},&#xD;&#xA;  &quot;MarkType&quot;: &quot;bind1&quot;,&#xD;&#xA;  &quot;LocalOnly&quot;: ${var:凛绝eLocalOnly} &#xD;&#xA;}" ActionType="NamedCallback" ExecutionDelayExpression="30" Asynchronous="False" />
+                      <Action OrderNumber="6" NamedCallbackName="mark" NamedCallbackParam="{&#xD;&#xA;  &quot;ActorID&quot;: 0x${lvar:P2光之失控连线列表[1]},&#xD;&#xA;  &quot;MarkType&quot;: &quot;bind2&quot;,&#xD;&#xA;  &quot;LocalOnly&quot;: ${var:凛绝eLocalOnly} &#xD;&#xA;}" ActionType="NamedCallback" ExecutionDelayExpression="30" Asynchronous="False" />
+                      <Action OrderNumber="7" TriggerId="29722a40-8ae7-4f07-ab8e-2b4b74ef145b" TriggerForce="regexp" ActionType="Trigger" ExecutionDelayExpression="10000" />
+                      <Action OrderNumber="8" TriggerId="672e237d-7929-46c5-bc9a-3fabc7b5001e" TriggerForce="regexp" Enabled="False" ActionType="Trigger" ExecutionDelayExpression="10000" />
                     </Actions>
                   </Trigger>
                 </Triggers>
@@ -2764,7 +2782,7 @@
         </Folders>
         <Triggers />
       </Folder>
-      <Folder Id="0a47785e-e113-4e04-ad26-c234b42ff2a6" Name="P4（绝赞测试中）" Enabled="false">
+      <Folder Id="0a47785e-e113-4e04-ad26-c234b42ff2a6" Name="P4" Enabled="false">
         <Folders>
           <Folder Id="0bb325aa-fd07-41b2-9e4a-c9f3efc61f6b" Name="2.Crystallize Time/时间结晶 二运" Enabled="true">
             <Folders>
@@ -2773,27 +2791,124 @@
                   <Folder Id="5e9c0b14-e283-417a-a26d-c4e9f7d04f8f" Name="A.点名科技" Enabled="true">
                     <Folders />
                     <Triggers>
-                      <Trigger Enabled="true" Sequential="True" Name="1.获取buff" Id="39951846-aca4-4930-addf-ea80c4cb97e5" RegularExpression="^.{14} \S+ 1A:(?&lt;type&gt;CBF|CC0):.*?:(?&lt;dur&gt;\d+)[^:]*:[^:]*::(?&lt;uid&gt;[^:]*)">
+                      <Trigger Enabled="true" Name="3.处理buff(暗1土2水3冰4)" Id="1f7850b3-e470-4ac6-b908-244062484fc5" RegularExpression="P4二运龙点名收集完成">
                         <Actions>
-                          <Action OrderNumber="1" ListVariableOp="Push" ListVariableName="P4二运蓝龙" ListVariableExpression="${uid}" ActionType="ListVariable">
+                          <Action OrderNumber="1" ActionType="Placeholder" Description="排序列表&#xD;&#xA;" DescriptionOverride="True" />
+                          <Action OrderNumber="2" ListVariableOp="SortByKeys" ListVariableName="P4二运短红龙" ListVariableExpression="s+:${lvar:party.indexof(${_this})}" ActionType="ListVariable" Asynchronous="False" />
+                          <Action OrderNumber="3" ListVariableOp="SortByKeys" ListVariableName="P4二运长红龙" ListVariableExpression="s+:${lvar:party.indexof(${_this})}" ActionType="ListVariable" Asynchronous="False" />
+                          <Action OrderNumber="4" ListVariableOp="SortByKeys" ListVariableName="P4二运蓝龙" ListVariableExpression="s+:${lvar:P4二运冰.indexof(${_this})}" ActionType="ListVariable" Asynchronous="False" />
+                          <Action OrderNumber="5" LoopInitExpression="1" ActionType="Loop" Asynchronous="False">
+                            <LoopCondition Enabled="true" Grouping="And">
+                              <ConditionSingle Enabled="true" ExpressionL="${_loopiterator}" ExpressionTypeL="Numeric" ExpressionR="3" ExpressionTypeR="Numeric" ConditionType="NumericLessEqual" />
+                            </LoopCondition>
+                            <LoopActions>
+                              <Action OrderNumber="1" VariableOp="SetString" VariableName="P4二运蓝冰" VariableExpression="${l:P4二运冰[${_loopiterator}]}" ActionType="Variable">
+                                <Condition Enabled="true" Grouping="And">
+                                  <ConditionSingle Enabled="true" ExpressionL="${l:P4二运蓝龙.contain(${l:P4二运冰[${_loopiterator}]})}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                                </Condition>
+                              </Action>
+                            </LoopActions>
+                          </Action>
+                          <Action OrderNumber="6" ActionType="Placeholder" Description="输出 死宣攻击组" DescriptionOverride="True" />
+                          <Action OrderNumber="7" NamedCallbackName="mark" NamedCallbackParam="{&#xD;&#xA;  &quot;ActorID&quot;: 0x${v:P4二运蓝暗},&#xD;&#xA;  &quot;MarkType&quot;: &quot;attack1&quot;,&#xD;&#xA;  &quot;LocalOnly&quot;: ${var:凛绝eLocalOnly} &#xD;&#xA;}" ActionType="NamedCallback" ExecutionDelayExpression="30" Asynchronous="False">
+                            <Condition Enabled="true" Grouping="And">
+                              <ConditionSingle Enabled="true" ExpressionL="${var:凛绝e头标}" ExpressionTypeL="String" ExpressionR="启用" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                            </Condition>
+                          </Action>
+                          <Action OrderNumber="8" NamedCallbackName="mark" NamedCallbackParam="{&#xD;&#xA;  &quot;ActorID&quot;: 0x${v:P4二运蓝土},&#xD;&#xA;  &quot;MarkType&quot;: &quot;attack2&quot;,&#xD;&#xA;  &quot;LocalOnly&quot;: ${var:凛绝eLocalOnly} &#xD;&#xA;}" ActionType="NamedCallback" ExecutionDelayExpression="30" Asynchronous="False">
+                            <Condition Enabled="true" Grouping="And">
+                              <ConditionSingle Enabled="true" ExpressionL="${var:凛绝e头标}" ExpressionTypeL="String" ExpressionR="启用" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                            </Condition>
+                          </Action>
+                          <Action OrderNumber="9" NamedCallbackName="mark" NamedCallbackParam="{&#xD;&#xA;  &quot;ActorID&quot;: 0x${v:P4二运蓝水},&#xD;&#xA;  &quot;MarkType&quot;: &quot;attack3&quot;,&#xD;&#xA;  &quot;LocalOnly&quot;: ${var:凛绝eLocalOnly} &#xD;&#xA;}" ActionType="NamedCallback" ExecutionDelayExpression="30" Asynchronous="False">
+                            <Condition Enabled="true" Grouping="And">
+                              <ConditionSingle Enabled="true" ExpressionL="${var:凛绝e头标}" ExpressionTypeL="String" ExpressionR="启用" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                            </Condition>
+                          </Action>
+                          <Action OrderNumber="10" NamedCallbackName="mark" NamedCallbackParam="{&#xD;&#xA;  &quot;ActorID&quot;: 0x${v:P4二运蓝冰},&#xD;&#xA;  &quot;MarkType&quot;: &quot;attack4&quot;,&#xD;&#xA;  &quot;LocalOnly&quot;: ${var:凛绝eLocalOnly} &#xD;&#xA;}" ActionType="NamedCallback" ExecutionDelayExpression="30" Asynchronous="False">
+                            <Condition Enabled="true" Grouping="And">
+                              <ConditionSingle Enabled="true" ExpressionL="${var:凛绝e头标}" ExpressionTypeL="String" ExpressionR="启用" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                            </Condition>
+                          </Action>
+                          <Action OrderNumber="11" ActionType="Placeholder" Description="输出 短红龙禁止组" DescriptionOverride="True" />
+                          <Action OrderNumber="12" NamedCallbackName="mark" NamedCallbackParam="{&#xD;&#xA;  &quot;ActorID&quot;: 0x${lvar:P4二运短红龙[1]},&#xD;&#xA;  &quot;MarkType&quot;: &quot;stop1&quot;,&#xD;&#xA;  &quot;LocalOnly&quot;: ${var:凛绝eLocalOnly} &#xD;&#xA;}" ActionType="NamedCallback" ExecutionDelayExpression="30" Asynchronous="False">
+                            <Condition Enabled="true" Grouping="And">
+                              <ConditionSingle Enabled="true" ExpressionL="${var:凛绝e头标}" ExpressionTypeL="String" ExpressionR="启用" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                            </Condition>
+                          </Action>
+                          <Action OrderNumber="13" NamedCallbackName="mark" NamedCallbackParam="{&#xD;&#xA;  &quot;ActorID&quot;: 0x${lvar:P4二运短红龙[2]},&#xD;&#xA;  &quot;MarkType&quot;: &quot;stop2&quot;,&#xD;&#xA;  &quot;LocalOnly&quot;: ${var:凛绝eLocalOnly} &#xD;&#xA;}" ActionType="NamedCallback" ExecutionDelayExpression="30" Asynchronous="False">
+                            <Condition Enabled="true" Grouping="And">
+                              <ConditionSingle Enabled="true" ExpressionL="${var:凛绝e头标}" ExpressionTypeL="String" ExpressionR="启用" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                            </Condition>
+                          </Action>
+                          <Action OrderNumber="14" ActionType="Placeholder" Description="输出 长红龙禁止组" DescriptionOverride="True" />
+                          <Action OrderNumber="15" NamedCallbackName="mark" NamedCallbackParam="{&#xD;&#xA;  &quot;ActorID&quot;: 0x${lvar:P4二运长红龙[1]},&#xD;&#xA;  &quot;MarkType&quot;: &quot;bind1&quot;,&#xD;&#xA;  &quot;LocalOnly&quot;: ${var:凛绝eLocalOnly} &#xD;&#xA;}" ActionType="NamedCallback" ExecutionDelayExpression="30" Asynchronous="False">
+                            <Condition Enabled="true" Grouping="And">
+                              <ConditionSingle Enabled="true" ExpressionL="${var:凛绝e头标}" ExpressionTypeL="String" ExpressionR="启用" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                            </Condition>
+                          </Action>
+                          <Action OrderNumber="16" NamedCallbackName="mark" NamedCallbackParam="{&#xD;&#xA;  &quot;ActorID&quot;: 0x${lvar:P4二运长红龙[2]},&#xD;&#xA;  &quot;MarkType&quot;: &quot;bind2&quot;,&#xD;&#xA;  &quot;LocalOnly&quot;: ${var:凛绝eLocalOnly} &#xD;&#xA;}" ActionType="NamedCallback" ExecutionDelayExpression="30" Asynchronous="False">
+                            <Condition Enabled="true" Grouping="And">
+                              <ConditionSingle Enabled="true" ExpressionL="${var:凛绝e头标}" ExpressionTypeL="String" ExpressionR="启用" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                            </Condition>
+                          </Action>
+                        </Actions>
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${v:二运死宣标记方式}" ExpressionTypeL="String" ExpressionR="暗1土2水3冰4" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                        </Condition>
+                      </Trigger>
+                      <Trigger Enabled="true" Name="X.清除点名" Id="d6e76cf0-15f5-4ee8-9e7d-d9b87cd5b2f4" RegularExpression="^.{14} \S+ 14:[^:]*:[^:]*:9D6E">
+                        <Actions>
+                          <Action OrderNumber="1" TriggerId="29722a40-8ae7-4f07-ab8e-2b4b74ef145b" TriggerForce="regexp" ActionType="Trigger" Asynchronous="False" />
+                        </Actions>
+                      </Trigger>
+                      <Trigger Enabled="true" Sequential="True" Name="1.获取buff" Id="4d7d11a7-f572-4804-b8ad-743b6c9f6a4f" RegularExpression="^.{14} \S+ 1A:(?&lt;type&gt;CBF|CC0|99C|996|99D|99E):.*?:(?&lt;dur&gt;\d+)[^:]*:[^:]*::(?&lt;uid&gt;[^:]*)">
+                        <Actions>
+                          <Action OrderNumber="1" ActionType="Placeholder" Description="记录红蓝龙组&#xD;&#xA;" DescriptionOverride="True" />
+                          <Action OrderNumber="2" ListVariableOp="Push" ListVariableName="P4二运蓝龙" ListVariableExpression="${uid}" ActionType="ListVariable">
                             <Condition Enabled="true" Grouping="And">
                               <ConditionSingle Enabled="true" ExpressionL="${type}" ExpressionTypeL="String" ExpressionR="CC0" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
                             </Condition>
                           </Action>
-                          <Action OrderNumber="2" ListVariableOp="Push" ListVariableName="P4二运短红龙" ListVariableExpression="${uid}" ActionType="ListVariable">
+                          <Action OrderNumber="3" ListVariableOp="Push" ListVariableName="P4二运短红龙" ListVariableExpression="${uid}" ActionType="ListVariable">
                             <Condition Enabled="true" Grouping="And">
                               <ConditionSingle Enabled="true" ExpressionL="${type}" ExpressionTypeL="String" ExpressionR="CBF" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
                               <ConditionSingle Enabled="true" ExpressionL="${dur}" ExpressionTypeL="String" ExpressionR="17" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
                             </Condition>
                           </Action>
-                          <Action OrderNumber="3" ListVariableOp="Push" ListVariableName="P4二运长红龙" ListVariableExpression="${uid}" ActionType="ListVariable">
+                          <Action OrderNumber="4" ListVariableOp="Push" ListVariableName="P4二运长红龙" ListVariableExpression="${uid}" ActionType="ListVariable">
                             <Condition Enabled="true" Grouping="And">
                               <ConditionSingle Enabled="true" ExpressionL="${type}" ExpressionTypeL="String" ExpressionR="CBF" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
                               <ConditionSingle Enabled="true" ExpressionL="${dur}" ExpressionTypeL="String" ExpressionR="40" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
                             </Condition>
                           </Action>
-                          <Action OrderNumber="4" ActionType="Placeholder" Description="输出&#xD;&#xA;" DescriptionOverride="True" />
-                          <Action OrderNumber="5" LogMessageText="P4二运龙点名收集完成" LogProcess="True" ActionType="LogMessage">
+                          <Action OrderNumber="5" ActionType="Placeholder" Description="记录 暗标1 土标2 水标3 冰标4&#xD;&#xA;" DescriptionOverride="True" />
+                          <Action OrderNumber="6" VariableOp="SetString" VariableName="P4二运蓝暗" VariableExpression="${uid}" ActionType="Variable">
+                            <Condition Enabled="true" Grouping="And">
+                              <ConditionSingle Enabled="true" ExpressionL="${type}" ExpressionTypeL="String" ExpressionR="99C" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                              <ConditionSingle Enabled="true" ExpressionL="${dur}" ExpressionTypeL="String" ExpressionR="14" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                            </Condition>
+                          </Action>
+                          <Action OrderNumber="7" VariableOp="SetString" VariableName="P4二运蓝土" VariableExpression="${uid}" ActionType="Variable">
+                            <Condition Enabled="true" Grouping="And">
+                              <ConditionSingle Enabled="true" ExpressionL="${type}" ExpressionTypeL="String" ExpressionR="996" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                              <ConditionSingle Enabled="true" ExpressionL="${dur}" ExpressionTypeL="String" ExpressionR="17" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                            </Condition>
+                          </Action>
+                          <Action OrderNumber="8" VariableOp="SetString" VariableName="P4二运蓝水" VariableExpression="${uid}" ActionType="Variable">
+                            <Condition Enabled="true" Grouping="And">
+                              <ConditionSingle Enabled="true" ExpressionL="${type}" ExpressionTypeL="String" ExpressionR="99D" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                              <ConditionSingle Enabled="true" ExpressionL="${dur}" ExpressionTypeL="String" ExpressionR="12" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                            </Condition>
+                          </Action>
+                          <Action OrderNumber="9" ListVariableOp="Push" ListVariableName="P4二运冰" ListVariableExpression="${uid}" VariableOp="SetString" VariableName="P4二运冰" VariableExpression="${uid}" ActionType="ListVariable">
+                            <Condition Enabled="true" Grouping="And">
+                              <ConditionSingle Enabled="true" ExpressionL="${type}" ExpressionTypeL="String" ExpressionR="99E" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                              <ConditionSingle Enabled="true" ExpressionL="${dur}" ExpressionTypeL="String" ExpressionR="14" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                            </Condition>
+                          </Action>
+                          <Action OrderNumber="10" ActionType="Placeholder" Description="输出&#xD;&#xA;" DescriptionOverride="True" />
+                          <Action OrderNumber="11" LogMessageText="P4二运龙点名收集完成" LogProcess="True" ActionType="LogMessage">
                             <Condition Enabled="true" Grouping="And">
                               <ConditionSingle Enabled="true" ExpressionL="${lvar:P4二运长红龙.size}" ExpressionTypeL="Numeric" ExpressionR="2" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
                               <ConditionSingle Enabled="true" ExpressionL="${lvar:P4二运短红龙.size}" ExpressionTypeL="Numeric" ExpressionR="2" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
@@ -2802,7 +2917,7 @@
                           </Action>
                         </Actions>
                       </Trigger>
-                      <Trigger Enabled="true" Name="2.处理buff" Id="1f7850b3-e470-4ac6-b908-244062484fc5" RegularExpression="P4二运龙点名收集完成">
+                      <Trigger Enabled="true" Name="2.处理buff(1D2B3344)" Id="a3e8a303-412c-48bb-af23-e7595947264d" RegularExpression="P4二运龙点名收集完成">
                         <Actions>
                           <Action OrderNumber="1" ActionType="Placeholder" Description="排序列表&#xD;&#xA;" DescriptionOverride="True" />
                           <Action OrderNumber="2" ListVariableOp="SortByKeys" ListVariableName="P4二运短红龙" ListVariableExpression="s+:${lvar:party.indexof(${_this})}" ActionType="ListVariable" Asynchronous="False" />
@@ -2852,15 +2967,13 @@
                             </Condition>
                           </Action>
                         </Actions>
-                      </Trigger>
-                      <Trigger Enabled="true" Name="X.清除点名" Id="d6e76cf0-15f5-4ee8-9e7d-d9b87cd5b2f4" RegularExpression="^.{14} \S+ 14:[^:]*:[^:]*:9D6E">
-                        <Actions>
-                          <Action OrderNumber="1" TriggerId="29722a40-8ae7-4f07-ab8e-2b4b74ef145b" TriggerForce="regexp" ActionType="Trigger" Asynchronous="False" />
-                        </Actions>
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${v:二运死宣标记方式}" ExpressionTypeL="String" ExpressionR="1D2B3344" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                        </Condition>
                       </Trigger>
                     </Triggers>
                   </Folder>
-                  <Folder Id="48d7afdc-73cb-47b6-941e-f1667bec9407" Name="B.竟敢无视灯" Enabled="true">
+                  <Folder Id="48d7afdc-73cb-47b6-941e-f1667bec9407" Name="B.竟敢无视灯" Enabled="false">
                     <Folders />
                     <Triggers>
                       <Trigger Enabled="true" Sequential="True" Name="1.获取灯" Id="514f4185-9101-42bc-a6be-5825426c8f48" RegularExpression="^.{14} \S+ 23:(?&lt;OID&gt;.{8}):(?:.*?:){5}0085">
@@ -2892,6 +3005,7 @@
             <Triggers>
               <Trigger Enabled="true" Name="读条启用" Id="c4338b11-808e-41f3-aba9-5ccb05c15f9c" RegularExpression="^.{14} \S+ 14:[^:]*:[^:]*:9D6A">
                 <Actions>
+                  <Action OrderNumber="1" TriggerId="29722a40-8ae7-4f07-ab8e-2b4b74ef145b" TriggerForce="regexp" ActionType="Trigger" />
                   <Action OrderNumber="1" UseTTSTextExpression="准备二运" ActionType="UseTTS" />
                   <Action OrderNumber="2" FolderId="0e191b14-0b0c-43ce-926a-07dd4dd35b68" ActionType="Folder" />
                 </Actions>
@@ -3029,7 +3143,7 @@
                         </Condition>
                       </Action>
                       <Action OrderNumber="9" ActionType="Placeholder" Description="不换情况&#xD;&#xA;" DescriptionOverride="True" />
-                      <Action OrderNumber="10" NamedCallbackName="command" NamedCallbackParam="/e 不换位&lt;se.1&gt;" ActionType="NamedCallback">
+                      <Action OrderNumber="10" NamedCallbackName="command" NamedCallbackParam="/${v:凛绝eCmode} 不换位&lt;se.1&gt;" ActionType="NamedCallback">
                         <Condition Enabled="true" Grouping="And">
                           <ConditionSingle Enabled="true" ExpressionL="${var:P4一运光水分摊方位}" ExpressionTypeL="String" ExpressionR="上" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
                           <ConditionSingle Enabled="true" ExpressionL="${lvar:P4一运闲人组.indexof(${lvar:P4一运水分摊[1]})}" ExpressionTypeL="Numeric" ExpressionR="2" ExpressionTypeR="Numeric" ConditionType="NumericGreater" />
@@ -3041,7 +3155,7 @@
                           <ConditionSingle Enabled="true" ExpressionL="${lvar:P4一运闲人组.indexof(${lvar:P4一运水分摊[1]})}" ExpressionTypeL="Numeric" ExpressionR="2" ExpressionTypeR="Numeric" ConditionType="NumericGreater" />
                         </Condition>
                       </Action>
-                      <Action OrderNumber="12" NamedCallbackName="command" NamedCallbackParam="/e 不换位&lt;se.1&gt;" ActionType="NamedCallback">
+                      <Action OrderNumber="12" NamedCallbackName="command" NamedCallbackParam="/${v:凛绝eCmode} 不换位&lt;se.1&gt;" ActionType="NamedCallback">
                         <Condition Enabled="true" Grouping="And">
                           <ConditionSingle Enabled="true" ExpressionL="${var:P4一运光水分摊方位}" ExpressionTypeL="String" ExpressionR="下" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
                           <ConditionSingle Enabled="true" ExpressionL="${lvar:P4一运闲人组.indexof(${lvar:P4一运水分摊[1]})}" ExpressionTypeL="Numeric" ExpressionR="2" ExpressionTypeR="Numeric" ConditionType="NumericLessEqual" />
@@ -3089,17 +3203,22 @@
                         </Condition>
                       </Action>
                       <Action OrderNumber="19" ActionType="Placeholder" Description="输出" DescriptionOverride="True" />
-                      <Action OrderNumber="20" NamedCallbackName="command" NamedCallbackParam="/${var:凛绝eCmode} ${_entity[${l:P4一运水分摊换位[1]}].name}和${_entity[${l:P4一运水分摊换位[2]}].name}換&lt;se.1&gt;" ActionType="NamedCallback">
+                      <Action OrderNumber="20" NamedCallbackName="command" NamedCallbackParam="/${v:凛绝eCmode} ${l:职能[${l:party.indexof(${l:P4一运水分摊换位[1]})}]}和${l:职能[${l:party.indexof(${l:P4一运水分摊换位[2]})}]}換&lt;se.1&gt;" ActionType="NamedCallback">
                         <Condition Enabled="true" Grouping="And">
                           <ConditionSingle Enabled="true" ExpressionL="${var:P4一运暂存}" ExpressionTypeL="String" ExpressionR="不换" ExpressionTypeR="String" ConditionType="StringNotEqualNocase" />
                         </Condition>
                       </Action>
-                      <Action OrderNumber="21" NamedCallbackName="mark" NamedCallbackParam="{&#xD;&#xA;  &quot;ActorID&quot;: 0x${lvar:P4一运水分摊换位[1]},&#xD;&#xA;  &quot;MarkType&quot;: &quot;bind1&quot;,&#xD;&#xA;  &quot;LocalOnly&quot;: ${var:凛绝eLocalOnly} &#xD;&#xA;}" ActionType="NamedCallback" ExecutionDelayExpression="30">
+                      <Action OrderNumber="21" NamedCallbackName="command" NamedCallbackParam="/p ${l:职能[${l:party.indexof(${l:P4一运水分摊换位[1]})}]}和${l:职能[${l:party.indexof(${l:P4一运水分摊换位[2]})}]}換&lt;se.1&gt;" Enabled="False" ActionType="NamedCallback">
                         <Condition Enabled="true" Grouping="And">
                           <ConditionSingle Enabled="true" ExpressionL="${var:P4一运暂存}" ExpressionTypeL="String" ExpressionR="不换" ExpressionTypeR="String" ConditionType="StringNotEqualNocase" />
                         </Condition>
                       </Action>
-                      <Action OrderNumber="22" NamedCallbackName="mark" NamedCallbackParam="{&#xD;&#xA;  &quot;ActorID&quot;: 0x${lvar:P4一运水分摊换位[2]},&#xD;&#xA;  &quot;MarkType&quot;: &quot;bind2&quot;,&#xD;&#xA;  &quot;LocalOnly&quot;: ${var:凛绝eLocalOnly} &#xD;&#xA;}" ActionType="NamedCallback" ExecutionDelayExpression="30">
+                      <Action OrderNumber="22" NamedCallbackName="mark" NamedCallbackParam="{&#xD;&#xA;  &quot;ActorID&quot;: 0x${lvar:P4一运水分摊换位[1]},&#xD;&#xA;  &quot;MarkType&quot;: &quot;bind1&quot;,&#xD;&#xA;  &quot;LocalOnly&quot;: ${var:凛绝eLocalOnly} &#xD;&#xA;}" ActionType="NamedCallback" ExecutionDelayExpression="30">
+                        <Condition Enabled="true" Grouping="And">
+                          <ConditionSingle Enabled="true" ExpressionL="${var:P4一运暂存}" ExpressionTypeL="String" ExpressionR="不换" ExpressionTypeR="String" ConditionType="StringNotEqualNocase" />
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="23" NamedCallbackName="mark" NamedCallbackParam="{&#xD;&#xA;  &quot;ActorID&quot;: 0x${lvar:P4一运水分摊换位[2]},&#xD;&#xA;  &quot;MarkType&quot;: &quot;bind2&quot;,&#xD;&#xA;  &quot;LocalOnly&quot;: ${var:凛绝eLocalOnly} &#xD;&#xA;}" ActionType="NamedCallback" ExecutionDelayExpression="30">
                         <Condition Enabled="true" Grouping="And">
                           <ConditionSingle Enabled="true" ExpressionL="${var:P4一运暂存}" ExpressionTypeL="String" ExpressionR="不换" ExpressionTypeR="String" ConditionType="StringNotEqualNocase" />
                         </Condition>
@@ -3125,53 +3244,212 @@
             </Triggers>
           </Folder>
         </Folders>
-        <Triggers />
+        <Triggers>
+          <Trigger Enabled="true" Name="转P" Id="581b5503-28b1-4ac8-b446-5eea0051f558" RegularExpression="^.{14} \S+ 21:.{8}:80000027:24:">
+            <Actions>
+              <Action OrderNumber="1" FolderOp="DisableFolder" FolderId="cfff91f7-af0d-494d-a136-1786f5daa08e" TriggerId="29722a40-8ae7-4f07-ab8e-2b4b74ef145b" TriggerForce="regexp,conditions" ActionType="Trigger" />
+              <Action OrderNumber="2" FolderOp="DisableFolder" FolderId="0a47785e-e113-4e04-ad26-c234b42ff2a6" ActionType="Folder" />
+              <Action OrderNumber="3" FolderId="c5acf584-88dc-413b-a315-5cfadb3a85e2" ActionType="Folder" />
+            </Actions>
+          </Trigger>
+        </Triggers>
       </Folder>
       <Folder Id="c5acf584-88dc-413b-a315-5cfadb3a85e2" Name="P5（这个地火真是人类能写的吗）" Enabled="false">
-        <Folders />
-        <Triggers />
+        <Folders>
+          <Folder Id="f16441d8-aeab-4a0e-8bdd-71f9283ec9cd" Name="地火小子播报" Enabled="false">
+            <Folders />
+            <Triggers>
+              <Trigger Enabled="true" Sequential="True" Name="1.收集日志" Id="7d62ea5a-0ee2-4917-8f6e-588ad0ed9ab1" RegularExpression="^.{14} \S+ 16:[^:]*:[^:]*:(9D74|9D75):[^:]*:(?&lt;pid&gt;[^:]*):(?&lt;pname&gt;[^:]*)">
+                <Actions>
+                  <Action OrderNumber="1" ListVariableOp="Push" ListVariableName="P5地火小子" ListVariableExpression="${pid}" ActionType="ListVariable" Asynchronous="False">
+                    <Condition Enabled="true" Grouping="Or">
+                      <ConditionSingle Enabled="true" ExpressionL="${l:P5地火小子.contain(${pid})}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                    </Condition>
+                  </Action>
+                  <Action OrderNumber="2" NamedCallbackName="command" NamedCallbackParam="/${v:凛绝eCmode} 地火奖状：${_entity[${pid}].jobEN}" ActionType="NamedCallback" Asynchronous="False">
+                    <Condition Enabled="false" Grouping="Or">
+                      <ConditionSingle Enabled="false" ExpressionL="${l:P5地火小子.contain(${pid})}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                    </Condition>
+                  </Action>
+                  <Action OrderNumber="3" NamedCallbackName="command" NamedCallbackParam="/${v:凛绝eCmode} 地火奖状：${_entity[${pid}].jobEN}" UseTTSTextExpression="地火奖状：${_entity[${pid}].jobEN}" Enabled="False" ActionType="UseTTS" Asynchronous="False" />
+                  <Action OrderNumber="4" ActionType="Placeholder" ExecutionDelayExpression="300" Asynchronous="False" />
+                </Actions>
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${l:P5地火小子.contain(${pid})}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                </Condition>
+              </Trigger>
+              <Trigger Enabled="true" Name="AOE" Id="5c22d659-decb-439c-81b2-9ac33ee6a16c" RegularExpression="^.{14} \S+ 14:.{8}:.*?:9D72:">
+                <Actions>
+                  <Action OrderNumber="1" ListVariableName="P5地火小子" ActionType="ListVariable" />
+                  <Action OrderNumber="2" UseTTSTextExpression="AOE" ActionType="UseTTS" />
+                </Actions>
+              </Trigger>
+            </Triggers>
+          </Folder>
+          <Folder Id="2ffad080-0974-4fbc-a545-584c1522fa0e" Name="B.挡枪提醒" Enabled="true">
+            <Folders />
+            <Triggers>
+              <Trigger Enabled="true" Name="3.Polarizing Paths/短挡判定" Id="a36b7d19-ffcb-48c7-9f4d-0dccbe6d5b68" RegularExpression="^.{14} \S+ 15:[^:]*:[^:]*:9D2A">
+                <Actions>
+                  <Action OrderNumber="1" VariableOp="Increment" VariableName="P5挡枪计数" VariableExpression="1" ActionType="Variable" />
+                  <Action OrderNumber="2" TriggerId="e79e83fe-b5d9-4524-8917-c76ae00763e4" TriggerForce="regexp" ActionType="Trigger" />
+                  <Action OrderNumber="3" ActionType="Placeholder" ExecutionDelayExpression="50" Description="等待清除" />
+                  <Action OrderNumber="4" NamedCallbackName="mark" NamedCallbackParam="{&#xD;&#xA;  &quot;ActorID&quot;: 0x${l:P5挡枪MT组[${v:P5挡枪计数}]},&#xD;&#xA;  &quot;MarkType&quot;: &quot;attack1&quot;,&#xD;&#xA;  &quot;LocalOnly&quot;: ${var:凛绝eLocalOnly} &#xD;&#xA;}" ActionType="NamedCallback">
+                    <Condition Enabled="true" Grouping="And">
+                      <ConditionSingle Enabled="true" ExpressionL="${var:凛绝e头标}" ExpressionTypeL="String" ExpressionR="启用" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                      <ConditionSingle Enabled="true" ExpressionL="${v:P5挡枪计数}" ExpressionTypeL="Numeric" ExpressionR="4" ExpressionTypeR="Numeric" ConditionType="NumericLessEqual" />
+                    </Condition>
+                  </Action>
+                  <Action OrderNumber="5" NamedCallbackName="mark" NamedCallbackParam="{&#xD;&#xA;  &quot;ActorID&quot;: 0x${l:P5挡枪ST组[${v:P5挡枪计数}]},&#xD;&#xA;  &quot;MarkType&quot;: &quot;bind1&quot;,&#xD;&#xA;  &quot;LocalOnly&quot;: ${var:凛绝eLocalOnly} &#xD;&#xA;}" ActionType="NamedCallback" ExecutionDelayExpression="30">
+                    <Condition Enabled="true" Grouping="And">
+                      <ConditionSingle Enabled="true" ExpressionL="${var:凛绝e头标}" ExpressionTypeL="String" ExpressionR="启用" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                      <ConditionSingle Enabled="true" ExpressionL="${v:P5挡枪计数}" ExpressionTypeL="Numeric" ExpressionR="4" ExpressionTypeR="Numeric" ConditionType="NumericLessEqual" />
+                    </Condition>
+                  </Action>
+                </Actions>
+              </Trigger>
+              <Trigger Enabled="true" Name="1.Polarizing Strikes/第一次读条" Id="a8f9bb6f-2dc5-460f-a618-9b9eb2db3088" RegularExpression="^.{14} \S+ 14:[^:]*:[^:]*:9D7C">
+                <Actions>
+                  <Action OrderNumber="1" VariableOp="SetNumeric" VariableName="P5挡枪计数" VariableExpression="1" ActionType="Variable" Asynchronous="False" />
+                  <Action OrderNumber="2" NamedCallbackName="mark" NamedCallbackParam="{&#xD;&#xA;  &quot;ActorID&quot;: 0x${l:P5挡枪MT组[1]},&#xD;&#xA;  &quot;MarkType&quot;: &quot;attack1&quot;,&#xD;&#xA;  &quot;LocalOnly&quot;: ${var:凛绝eLocalOnly} &#xD;&#xA;}" ActionType="NamedCallback" Asynchronous="False">
+                    <Condition Enabled="true" Grouping="And">
+                      <ConditionSingle Enabled="true" ExpressionL="${var:凛绝e头标}" ExpressionTypeL="String" ExpressionR="启用" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                    </Condition>
+                  </Action>
+                  <Action OrderNumber="3" NamedCallbackName="mark" NamedCallbackParam="{&#xD;&#xA;  &quot;ActorID&quot;: 0x${l:P5挡枪ST组[1]},&#xD;&#xA;  &quot;MarkType&quot;: &quot;bind1&quot;,&#xD;&#xA;  &quot;LocalOnly&quot;: ${var:凛绝eLocalOnly} &#xD;&#xA;}" ActionType="NamedCallback" ExecutionDelayExpression="30" Asynchronous="False">
+                    <Condition Enabled="true" Grouping="And">
+                      <ConditionSingle Enabled="true" ExpressionL="${var:凛绝e头标}" ExpressionTypeL="String" ExpressionR="启用" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                    </Condition>
+                  </Action>
+                </Actions>
+              </Trigger>
+              <Trigger Enabled="true" Sequential="True" Name="2.Polarizing Strikes/第一次判定" Id="94d55d48-f02f-45ed-a115-edc0a57473b4" RegularExpression="^.{14} \S+ 15:[^:]*:[^:]*:9D7C">
+                <Actions>
+                  <Action OrderNumber="1" VariableOp="Increment" VariableName="P5挡枪计数" VariableExpression="1" ActionType="Variable" />
+                  <Action OrderNumber="2" TriggerId="e79e83fe-b5d9-4524-8917-c76ae00763e4" TriggerForce="regexp" ActionType="Trigger" />
+                  <Action OrderNumber="3" ActionType="Placeholder" ExecutionDelayExpression="50" Description="等待清除" />
+                  <Action OrderNumber="4" NamedCallbackName="mark" NamedCallbackParam="{&#xD;&#xA;  &quot;ActorID&quot;: 0x${l:P5挡枪MT组[${v:P5挡枪计数}]},&#xD;&#xA;  &quot;MarkType&quot;: &quot;attack1&quot;,&#xD;&#xA;  &quot;LocalOnly&quot;: ${var:凛绝eLocalOnly} &#xD;&#xA;}" ActionType="NamedCallback">
+                    <Condition Enabled="true" Grouping="And">
+                      <ConditionSingle Enabled="true" ExpressionL="${var:凛绝e头标}" ExpressionTypeL="String" ExpressionR="启用" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                    </Condition>
+                  </Action>
+                  <Action OrderNumber="5" NamedCallbackName="mark" NamedCallbackParam="{&#xD;&#xA;  &quot;ActorID&quot;: 0x${l:P5挡枪ST组[${v:P5挡枪计数}]},&#xD;&#xA;  &quot;MarkType&quot;: &quot;bind1&quot;,&#xD;&#xA;  &quot;LocalOnly&quot;: ${var:凛绝eLocalOnly} &#xD;&#xA;}" ActionType="NamedCallback" ExecutionDelayExpression="30">
+                    <Condition Enabled="true" Grouping="And">
+                      <ConditionSingle Enabled="true" ExpressionL="${var:凛绝e头标}" ExpressionTypeL="String" ExpressionR="启用" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                    </Condition>
+                  </Action>
+                </Actions>
+              </Trigger>
+              <Trigger Enabled="true" Name="X.清除标点" Id="e79e83fe-b5d9-4524-8917-c76ae00763e4" RegularExpression="">
+                <Actions>
+                  <Action OrderNumber="1" NamedCallbackName="command" NamedCallbackParam="/mk attack1 &lt;attack1&gt;" Enabled="False" ActionType="NamedCallback" />
+                  <Action OrderNumber="2" NamedCallbackName="command" NamedCallbackParam="/mk bind1 &lt;bind1&gt;" Enabled="False" ActionType="NamedCallback" ExecutionDelayExpression="30" />
+                  <Action OrderNumber="3" NamedCallbackName="mark" NamedCallbackParam="{&quot;ActorID&quot;: 0xE000000,&quot;MarkType&quot;: &quot;attack1&quot;,&quot;LocalOnly&quot;: ${var:凛绝eLocalOnly}}" ActionType="NamedCallback" />
+                  <Action OrderNumber="4" NamedCallbackName="mark" NamedCallbackParam="{&quot;ActorID&quot;: 0xE000000,&quot;MarkType&quot;: &quot;bind1&quot;,&quot;LocalOnly&quot;: ${var:凛绝eLocalOnly}}" ActionType="NamedCallback" ExecutionDelayExpression="50" />
+                </Actions>
+              </Trigger>
+            </Triggers>
+          </Folder>
+        </Folders>
+        <Triggers>
+          <Trigger Enabled="true" Name="Pandora/TLB" Id="b0bffda7-9edc-4055-b514-19b3bc29f81f" RegularExpression="^.{14} \S+ 14:.{8}:.*?:9D86:">
+            <Actions>
+              <Action OrderNumber="1" TTSRouting="ACT" UseTTSTextExpression="坦克LB" ActionType="UseTTS" ExecutionDelayExpression="4700" />
+            </Actions>
+          </Trigger>
+          <Trigger Enabled="true" Name="光与暗的双翼 去右 左光翅膀1" Id="34e63006-3a18-4c47-9744-c4ac9aa0c899" RegularExpression="^.{14} (?:\w+ )14:.{8}:[^:]*:(9D79):" PeriodRefire="Deny" RefirePeriodExpression="100">
+            <Actions>
+              <Action OrderNumber="1" TTSRouting="Triggernometry" UseTTSTextExpression="光右,远死刑" UseTTSRateExpression="2" ActionType="UseTTS">
+                <Condition Enabled="false" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${type}" ExpressionTypeL="String" ExpressionR="9" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                </Condition>
+              </Action>
+            </Actions>
+          </Trigger>
+          <Trigger Enabled="true" Name="光与暗的双翼 去左 右暗翅膀1" Id="d7e18218-3ef9-4d17-b895-6efe9df2e1e7" RegularExpression="^.{14} (?:\w+ )14:.{8}:[^:]*:(9D29):" PeriodRefire="Deny" RefirePeriodExpression="100">
+            <Actions>
+              <Action OrderNumber="1" TTSRouting="Triggernometry" UseTTSTextExpression="暗左,近死刑" UseTTSRateExpression="2" ActionType="UseTTS">
+                <Condition Enabled="false" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${type}" ExpressionTypeL="String" ExpressionR="9" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                </Condition>
+              </Action>
+            </Actions>
+          </Trigger>
+          <Trigger Enabled="true" Name="死亡轮回 44分摊" Id="52b27b1b-40d6-4933-bbf0-de40e809afbe" RegularExpression="^.{14} (?:\w+ )14:.{8}:[^:]*:(9D76):" PeriodRefire="Deny" RefirePeriodExpression="100">
+            <Actions>
+              <Action OrderNumber="1" TTSRouting="Triggernometry" UseTTSTextExpression="四四分摊" UseTTSRateExpression="2" ActionType="UseTTS">
+                <Condition Enabled="false" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${type}" ExpressionTypeL="String" ExpressionR="9" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                </Condition>
+              </Action>
+            </Actions>
+          </Trigger>
+          <Trigger Enabled="false" Source="None" Name="Debug Log 2025-01-13 02:35" Id="b21c4a0d-056a-43cb-aecc-b06465c0325a">
+            <Actions>
+              <Action OrderNumber="1" LogMessageText="[00:02:03.539] StartsCasting 14:4000472D:Pandora:9D7C:Polarizing Strikes:4000472D:Pandora:6.200:99.99:99.99:0.00:-3.13" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
+              <Action OrderNumber="2" ActionType="Placeholder" ExecutionDelayExpression="6.46 * 1000" />
+              <Action OrderNumber="3" LogMessageText="[00:02:10.001] ActionEffect 15:4000472D:Pandora:9D7C:Polarizing Strikes:4000472D:Pandora:1B:9D7C8000:0:0:0:0:0:0:0:0:0:0:0:0:0:0:33518792:48541857:10000:10000:::99.99:99.99:0.00:-3.13:33518792:48541857:10000:10000:::99.99:99.99:0.00:-3.13:00005C0E:0:1:00::01:9D7C:9D7C:2.100:FFBD" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
+              <Action OrderNumber="4" ActionType="Placeholder" ExecutionDelayExpression="2.15 * 1000" />
+              <Action OrderNumber="5" LogMessageText="[00:02:12.148] StartsCasting 14:4000472D:Pandora:9D2A:Polarizing Paths:4000472D:Pandora:2.200:99.99:99.99:0.00:-3.13" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
+              <Action OrderNumber="6" ActionType="Placeholder" ExecutionDelayExpression="2.49 * 1000" />
+              <Action OrderNumber="7" LogMessageText="[00:02:14.643] ActionEffect 15:4000472D:Pandora:9D2A:Polarizing Paths:4000472D:Pandora:1B:9D2A8000:0:0:0:0:0:0:0:0:0:0:0:0:0:0:32899581:48541857:10000:10000:::99.99:99.99:0.00:-3.13:32899581:48541857:10000:10000:::99.99:99.99:0.00:-3.13:00005C31:0:1:00::01:9D2A:9D2A:2.100:FFBD" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
+              <Action OrderNumber="8" ActionType="Placeholder" ExecutionDelayExpression="2.14 * 1000" />
+              <Action OrderNumber="9" LogMessageText="[00:02:16.781] StartsCasting 14:4000472D:Pandora:9D2A:Polarizing Paths:4000472D:Pandora:2.200:99.99:99.99:0.00:-3.13" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
+              <Action OrderNumber="10" ActionType="Placeholder" ExecutionDelayExpression="2.50 * 1000" />
+              <Action OrderNumber="11" LogMessageText="[00:02:19.282] ActionEffect 15:4000472D:Pandora:9D2A:Polarizing Paths:4000472D:Pandora:1B:9D2A8000:0:0:0:0:0:0:0:0:0:0:0:0:0:0:32399504:48541857:10000:10000:::99.99:99.99:0.00:-3.13:32399504:48541857:10000:10000:::99.99:99.99:0.00:-3.13:00005C51:0:1:00::01:9D2A:9D2A:2.100:FFBD" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
+              <Action OrderNumber="12" ActionType="Placeholder" ExecutionDelayExpression="2.14 * 1000" />
+              <Action OrderNumber="13" LogMessageText="[00:02:21.422] StartsCasting 14:4000472D:Pandora:9D2A:Polarizing Paths:4000472D:Pandora:2.200:99.99:99.99:0.00:-3.13" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
+              <Action OrderNumber="14" ActionType="Placeholder" ExecutionDelayExpression="2.50 * 1000" />
+              <Action OrderNumber="15" LogMessageText="[00:02:23.921] ActionEffect 15:4000472D:Pandora:9D2A:Polarizing Paths:4000472D:Pandora:1B:9D2A8000:0:0:0:0:0:0:0:0:0:0:0:0:0:0:31963358:48541857:10000:10000:::99.99:99.99:0.00:-3.13:31963358:48541857:10000:10000:::99.99:99.99:0.00:-3.13:00005C70:0:1:00::01:9D2A:9D2A:2.100:FFBD" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
+            </Actions>
+          </Trigger>
+        </Triggers>
       </Folder>
     </Folders>
     <Triggers>
       <Trigger Enabled="true" Sequential="True" Name="团灭初始化" Id="3e4e10a9-e4af-4093-bf55-e4c1e9eca53f" RegularExpression="^.{14} (?:\w+ )21:.{8}:400000(03|1[026]|05)|任务结束了。|has ended\.|の攻略を終了した。">
         <Actions>
           <Action OrderNumber="1" NamedCallbackName="AdvWm" NamedCallbackParam="load" ActionType="NamedCallback" />
-          <Action OrderNumber="2" VariableOp="SetNumeric" VariableName="P1连线计数" VariableExpression="0" ActionType="Variable" />
-          <Action OrderNumber="3" VariableName="橙蓝安全区" ActionType="Variable" />
-          <Action OrderNumber="4" ListVariableName="P1分摊组" ActionType="ListVariable" />
-          <Action OrderNumber="5" ListVariableName="P1分摊组" VariableOp="UnsetRegex" VariableName="P2" ActionType="Variable" />
-          <Action OrderNumber="6" ListVariableName="P1分摊组" VariableOp="UnsetRegex" VariableName="P3" ActionType="Variable" />
-          <Action OrderNumber="7" ListVariableName="P1分摊组" VariableOp="UnsetRegex" VariableName="雾龙" ActionType="Variable" />
-          <Action OrderNumber="8" ListVariableOp="UnsetRegex" ListVariableName="P2" VariableOp="UnsetRegex" VariableName="P2" ActionType="ListVariable" />
-          <Action OrderNumber="9" ListVariableOp="UnsetRegex" ListVariableName="P3" VariableOp="UnsetRegex" VariableName="P2" ActionType="ListVariable" />
-          <Action OrderNumber="10" ListVariableOp="UnsetRegex" ListVariableName="P4" VariableOp="UnsetRegex" VariableName="P2" ActionType="ListVariable" />
-          <Action OrderNumber="11" DictVariableOp="UnsetRegex" DictVariableName="P4|2" ListVariableOp="UnsetRegex" ListVariableName="P4" VariableOp="UnsetRegex" VariableName="P2" ActionType="DictVariable" />
-          <Action OrderNumber="12" ListVariableOp="UnsetRegex" ListVariableName="P4" VariableOp="UnsetRegex" VariableName="P4" ActionType="Variable" />
-          <Action OrderNumber="13" ListVariableOp="UnsetRegex" ListVariableName="P3" VariableOp="UnsetRegex" VariableName="P2" TableVariableOp="UnsetRegex" TableVariableName="P3" ActionType="TableVariable" />
-          <Action OrderNumber="14" ListVariableOp="UnsetRegex" ListVariableName="雾龙" VariableOp="UnsetRegex" VariableName="雾龙" ActionType="ListVariable" />
-          <Action OrderNumber="15" ListVariableName="P1分摊MTST组换位" ActionType="ListVariable" />
-          <Action OrderNumber="16" ListVariableName="P1抓人剑列表" ActionType="ListVariable" />
-          <Action OrderNumber="17" VariableOp="SetNumeric" VariableName="抓人剑计数" VariableExpression="0" ActionType="Variable" />
-          <Action OrderNumber="18" VariableOp="SetNumeric" VariableName="光之失控连线计数" VariableExpression="0" ActionType="Variable" />
-          <Action OrderNumber="19" VariableOp="SetString" VariableName="凛绝e阶段" VariableExpression="P1" ActionType="Variable" />
-          <Action OrderNumber="20" ActionType="Placeholder" />
-          <Action OrderNumber="21" VariableOp="SetNumeric" VariableName="P2暂存" VariableExpression="0" TableVariableExpressionType="Numeric" ActionType="Variable" />
-          <Action OrderNumber="22" FolderOp="DisableFolder" FolderId="21d8a5d7-ed90-42a8-b1f0-7fc68e0dd08a" ActionType="Folder" />
-          <Action OrderNumber="23" FolderOp="DisableFolder" FolderId="e8d48828-bb1a-4d3f-93d5-bc241add0862" ActionType="Folder" />
-          <Action OrderNumber="24" FolderOp="DisableFolder" FolderId="b237e109-b1f5-4d00-a1ad-4b87fabb2973" ActionType="Folder" />
-          <Action OrderNumber="25" FolderOp="DisableFolder" FolderId="f5a8433a-349a-4106-bf6c-79b78a50315f" TriggerOp="EnableTrigger" TriggerForce="regexp,conditions" ActionType="Folder" />
-          <Action OrderNumber="26" FolderOp="DisableFolder" FolderId="4d093fe0-c72a-4694-b45d-29b93acfb6d0" ActionType="Folder" />
-          <Action OrderNumber="27" FolderOp="DisableFolder" FolderId="5df5f1b3-5f4e-4e85-9f9a-d06b6999e119" ActionType="Folder" />
-          <Action OrderNumber="28" FolderOp="DisableFolder" FolderId="4f5c2e40-a883-4635-b7df-e2ad33f14e1f" ActionType="Folder" />
-          <Action OrderNumber="29" FolderOp="DisableFolder" FolderId="cf4f885f-9064-4c9b-9c95-4473b476dd85" ActionType="Folder" />
-          <Action OrderNumber="30" FolderOp="DisableFolder" FolderId="0a47785e-e113-4e04-ad26-c234b42ff2a6" ActionType="Folder" />
-          <Action OrderNumber="31" FolderOp="DisableFolder" FolderId="35fe9e06-47c6-417c-9b4f-4d2618ca3be7" ActionType="Folder" />
-          <Action OrderNumber="32" FolderOp="DisableFolder" FolderId="0e191b14-0b0c-43ce-926a-07dd4dd35b68" ActionType="Folder" />
-          <Action OrderNumber="33" FolderId="29949018-bfdc-499f-af4d-d4d70cb39e19" ActionType="Folder" />
-          <Action OrderNumber="34" FolderId="c75b79ee-c0a6-4b24-ba1b-876d0cebd888" TriggerOp="DisableTrigger" ActionType="Folder" />
-          <Action OrderNumber="35" TriggerId="29722a40-8ae7-4f07-ab8e-2b4b74ef145b" TriggerForce="regexp" ActionType="Trigger" Asynchronous="False" />
-          <Action OrderNumber="36" TriggerId="672e237d-7929-46c5-bc9a-3fabc7b5001e" TriggerForce="regexp,conditions" ActionType="Trigger" ExecutionDelayExpression="100" Asynchronous="False" />
-          <Action OrderNumber="37" TriggerId="bb4102d1-402c-4cbc-b947-b75656a5ee3b" TriggerForce="regexp,conditions" ActionType="Trigger" Asynchronous="False" />
+          <Action OrderNumber="2" NamedCallbackName="command" NamedCallbackParam="/bgm" Enabled="False" ActionType="NamedCallback" />
+          <Action OrderNumber="3" VariableOp="SetNumeric" VariableName="P1连线计数" VariableExpression="0" ActionType="Variable" />
+          <Action OrderNumber="4" VariableName="橙蓝安全区" ActionType="Variable" />
+          <Action OrderNumber="5" ListVariableName="P1分摊组" ActionType="ListVariable" />
+          <Action OrderNumber="6" ListVariableName="P1分摊组" VariableOp="UnsetRegex" VariableName="P2" ActionType="Variable" />
+          <Action OrderNumber="7" ListVariableName="P1分摊组" VariableOp="UnsetRegex" VariableName="P3" ActionType="Variable" />
+          <Action OrderNumber="8" ListVariableOp="UnsetRegex" ListVariableName="P4" VariableOp="UnsetRegex" VariableName="P4" ActionType="Variable" />
+          <Action OrderNumber="9" ListVariableOp="UnsetRegex" ListVariableName="P4" VariableOp="UnsetRegex" VariableName="P5" ActionType="Variable" />
+          <Action OrderNumber="10" ListVariableName="P1分摊组" VariableOp="UnsetRegex" VariableName="雾龙" ActionType="Variable" />
+          <Action OrderNumber="11" ListVariableOp="UnsetRegex" ListVariableName="P2" VariableOp="UnsetRegex" VariableName="P2" ActionType="ListVariable" />
+          <Action OrderNumber="12" ListVariableOp="UnsetRegex" ListVariableName="P3" VariableOp="UnsetRegex" VariableName="P2" ActionType="ListVariable" />
+          <Action OrderNumber="13" ListVariableOp="UnsetRegex" ListVariableName="P4" VariableOp="UnsetRegex" VariableName="P2" ActionType="ListVariable" />
+          <Action OrderNumber="14" ListVariableOp="UnsetRegex" ListVariableName="P5" VariableOp="UnsetRegex" VariableName="P2" ActionType="ListVariable" />
+          <Action OrderNumber="15" DictVariableOp="UnsetRegex" DictVariableName="P4|2" ListVariableOp="UnsetRegex" ListVariableName="P4" VariableOp="UnsetRegex" VariableName="P2" ActionType="DictVariable" />
+          <Action OrderNumber="16" ListVariableOp="UnsetRegex" ListVariableName="P3" VariableOp="UnsetRegex" VariableName="P2" TableVariableOp="UnsetRegex" TableVariableName="P3" ActionType="TableVariable" />
+          <Action OrderNumber="17" ListVariableOp="UnsetRegex" ListVariableName="雾龙" VariableOp="UnsetRegex" VariableName="雾龙" ActionType="ListVariable" />
+          <Action OrderNumber="18" ListVariableName="P1分摊MTST组换位" ActionType="ListVariable" />
+          <Action OrderNumber="19" ListVariableName="P1抓人剑列表" ActionType="ListVariable" />
+          <Action OrderNumber="20" VariableOp="SetNumeric" VariableName="抓人剑计数" VariableExpression="0" ActionType="Variable" />
+          <Action OrderNumber="21" VariableOp="SetNumeric" VariableName="光之失控连线计数" VariableExpression="0" ActionType="Variable" />
+          <Action OrderNumber="22" VariableOp="SetString" VariableName="凛绝e阶段" VariableExpression="P1" ActionType="Variable" />
+          <Action OrderNumber="23" ActionType="Placeholder" />
+          <Action OrderNumber="24" VariableOp="SetNumeric" VariableName="P2暂存" VariableExpression="0" TableVariableExpressionType="Numeric" ActionType="Variable" />
+          <Action OrderNumber="25" FolderOp="DisableFolder" FolderId="21d8a5d7-ed90-42a8-b1f0-7fc68e0dd08a" ActionType="Folder" />
+          <Action OrderNumber="26" FolderOp="DisableFolder" FolderId="e8d48828-bb1a-4d3f-93d5-bc241add0862" ActionType="Folder" />
+          <Action OrderNumber="27" FolderOp="DisableFolder" FolderId="b237e109-b1f5-4d00-a1ad-4b87fabb2973" ActionType="Folder" />
+          <Action OrderNumber="28" FolderOp="DisableFolder" FolderId="f5a8433a-349a-4106-bf6c-79b78a50315f" TriggerOp="EnableTrigger" TriggerForce="regexp,conditions" ActionType="Folder" />
+          <Action OrderNumber="29" FolderOp="DisableFolder" FolderId="4d093fe0-c72a-4694-b45d-29b93acfb6d0" ActionType="Folder" />
+          <Action OrderNumber="30" FolderOp="DisableFolder" FolderId="5df5f1b3-5f4e-4e85-9f9a-d06b6999e119" ActionType="Folder" />
+          <Action OrderNumber="31" FolderOp="DisableFolder" FolderId="4f5c2e40-a883-4635-b7df-e2ad33f14e1f" ActionType="Folder" />
+          <Action OrderNumber="32" FolderOp="DisableFolder" FolderId="cf4f885f-9064-4c9b-9c95-4473b476dd85" ActionType="Folder" />
+          <Action OrderNumber="33" FolderOp="DisableFolder" FolderId="0a47785e-e113-4e04-ad26-c234b42ff2a6" ActionType="Folder" />
+          <Action OrderNumber="34" FolderOp="DisableFolder" FolderId="c5acf584-88dc-413b-a315-5cfadb3a85e2" ActionType="Folder" />
+          <Action OrderNumber="35" FolderOp="DisableFolder" FolderId="35fe9e06-47c6-417c-9b4f-4d2618ca3be7" ActionType="Folder" />
+          <Action OrderNumber="36" FolderOp="DisableFolder" FolderId="0e191b14-0b0c-43ce-926a-07dd4dd35b68" ActionType="Folder" />
+          <Action OrderNumber="37" FolderId="29949018-bfdc-499f-af4d-d4d70cb39e19" ActionType="Folder" />
+          <Action OrderNumber="38" FolderId="c75b79ee-c0a6-4b24-ba1b-876d0cebd888" TriggerOp="DisableTrigger" ActionType="Folder" />
+          <Action OrderNumber="39" TriggerId="29722a40-8ae7-4f07-ab8e-2b4b74ef145b" TriggerForce="regexp" ActionType="Trigger" Asynchronous="False" />
+          <Action OrderNumber="40" TriggerId="672e237d-7929-46c5-bc9a-3fabc7b5001e" TriggerForce="regexp,conditions" Enabled="False" ActionType="Trigger" ExecutionDelayExpression="100" Asynchronous="False" />
+          <Action OrderNumber="41" TriggerId="bb4102d1-402c-4cbc-b947-b75656a5ee3b" TriggerForce="regexp,conditions" ActionType="Trigger" Asynchronous="False" />
         </Actions>
       </Trigger>
       <Trigger Enabled="true" Name="更新日志" Id="17d9628a-1d76-47b5-8a43-7a6dc3aa0602" RegularExpression="" Description="2024.11.28第一版：&#xD;&#xA;写到P1最后一个机制踩塔了，时间不够就没写了，明天继续，前面的日志测试过了，没问题。需要实战，但是找不到队伍TvT&#xD;&#xA;&#xD;&#xA;2024.11.28第二版：&#xD;&#xA;由于攻略更新后要优化雾龙后分摊，所以改为了MTST双组而不是TNDPS双组。可以在设置里调整，现在默认是MTST组。&#xD;&#xA;&#xD;&#xA;2024.11.29第一版：&#xD;&#xA;更新了P2镜之国前内容（未实战测试）。&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;有问题请联系我2040296883">
