@@ -3352,36 +3352,14 @@
           </Folder>
         </Folders>
         <Triggers>
-          <Trigger Enabled="true" Name="Pandora/TLB" Id="b0bffda7-9edc-4055-b514-19b3bc29f81f" RegularExpression="^.{14} \S+ 14:.{8}:.*?:9D86:">
+          <Trigger Enabled="true" Name="Pandora/TLB" Id="b0bffda7-9edc-4055-b514-19b3bc29f81f" RegularExpression="^.{14} \S+ 14:[^:]*:[^:]*:9D86">
             <Actions>
-              <Action OrderNumber="1" TTSRouting="ACT" UseTTSTextExpression="坦克LB" ActionType="UseTTS" ExecutionDelayExpression="4700" />
+              <Action OrderNumber="1" UseTTSTextExpression="坦克LB" ActionType="UseTTS" ExecutionDelayExpression="6000" />
             </Actions>
           </Trigger>
-          <Trigger Enabled="true" Name="光与暗的双翼 去右 左光翅膀1" Id="34e63006-3a18-4c47-9744-c4ac9aa0c899" RegularExpression="^.{14} (?:\w+ )14:.{8}:[^:]*:(9D79):" PeriodRefire="Deny" RefirePeriodExpression="100">
+          <Trigger Enabled="true" Name="死亡轮回 44分摊" Id="52b27b1b-40d6-4933-bbf0-de40e809afbe" RegularExpression="^.{14} \S+ 14:[^:]*:[^:]*:9D76" PeriodRefire="Deny" RefirePeriodExpression="100">
             <Actions>
-              <Action OrderNumber="1" TTSRouting="Triggernometry" UseTTSTextExpression="光右,远死刑" UseTTSRateExpression="2" ActionType="UseTTS">
-                <Condition Enabled="false" Grouping="Or">
-                  <ConditionSingle Enabled="true" ExpressionL="${type}" ExpressionTypeL="String" ExpressionR="9" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                </Condition>
-              </Action>
-            </Actions>
-          </Trigger>
-          <Trigger Enabled="true" Name="光与暗的双翼 去左 右暗翅膀1" Id="d7e18218-3ef9-4d17-b895-6efe9df2e1e7" RegularExpression="^.{14} (?:\w+ )14:.{8}:[^:]*:(9D29):" PeriodRefire="Deny" RefirePeriodExpression="100">
-            <Actions>
-              <Action OrderNumber="1" TTSRouting="Triggernometry" UseTTSTextExpression="暗左,近死刑" UseTTSRateExpression="2" ActionType="UseTTS">
-                <Condition Enabled="false" Grouping="Or">
-                  <ConditionSingle Enabled="true" ExpressionL="${type}" ExpressionTypeL="String" ExpressionR="9" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                </Condition>
-              </Action>
-            </Actions>
-          </Trigger>
-          <Trigger Enabled="true" Name="死亡轮回 44分摊" Id="52b27b1b-40d6-4933-bbf0-de40e809afbe" RegularExpression="^.{14} (?:\w+ )14:.{8}:[^:]*:(9D76):" PeriodRefire="Deny" RefirePeriodExpression="100">
-            <Actions>
-              <Action OrderNumber="1" TTSRouting="Triggernometry" UseTTSTextExpression="四四分摊" UseTTSRateExpression="2" ActionType="UseTTS">
-                <Condition Enabled="false" Grouping="Or">
-                  <ConditionSingle Enabled="true" ExpressionL="${type}" ExpressionTypeL="String" ExpressionR="9" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-                </Condition>
-              </Action>
+              <Action OrderNumber="1" UseTTSTextExpression="左右四四分摊" ActionType="UseTTS" />
             </Actions>
           </Trigger>
           <Trigger Enabled="false" Source="None" Name="Debug Log 2025-01-13 02:35" Id="b21c4a0d-056a-43cb-aecc-b06465c0325a">
@@ -3401,6 +3379,20 @@
               <Action OrderNumber="13" LogMessageText="[00:02:21.422] StartsCasting 14:4000472D:Pandora:9D2A:Polarizing Paths:4000472D:Pandora:2.200:99.99:99.99:0.00:-3.13" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
               <Action OrderNumber="14" ActionType="Placeholder" ExecutionDelayExpression="2.50 * 1000" />
               <Action OrderNumber="15" LogMessageText="[00:02:23.921] ActionEffect 15:4000472D:Pandora:9D2A:Polarizing Paths:4000472D:Pandora:1B:9D2A8000:0:0:0:0:0:0:0:0:0:0:0:0:0:0:31963358:48541857:10000:10000:::99.99:99.99:0.00:-3.13:31963358:48541857:10000:10000:::99.99:99.99:0.00:-3.13:00005C70:0:1:00::01:9D2A:9D2A:2.100:FFBD" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
+            </Actions>
+          </Trigger>
+          <Trigger Enabled="true" Name="死刑半场刀+引导" Id="36c5ec0c-d04c-4dfb-9ccc-fc41001d44dc" RegularExpression="^.{14} \S+ 14:[^:]*:[^:]*:(?&lt;type&gt;9D79|9D29)">
+            <Actions>
+              <Action OrderNumber="1" UseTTSTextExpression="光右侧 远引导" ActionType="UseTTS">
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${type}" ExpressionTypeL="String" ExpressionR="9D79" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="2" UseTTSTextExpression="暗左侧 近引导" ActionType="UseTTS">
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${type}" ExpressionTypeL="String" ExpressionR="9D29" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                </Condition>
+              </Action>
             </Actions>
           </Trigger>
         </Triggers>
