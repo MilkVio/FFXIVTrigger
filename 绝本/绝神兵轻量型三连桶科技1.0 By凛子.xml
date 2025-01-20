@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <TriggernometryExport PluginVersion="1.2.0.718">
-  <ExportedFolder FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^777$" Id="8e584338-6e75-4f6d-a0fe-00949b166a2d" ZoneFilterRegularExpression="^究极神兵绝境战$" Name="绝神兵轻量型三连桶科技1.0 By凛子" Enabled="true">
+  <ExportedFolder FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^777$" Id="8e584338-6e75-4f6d-a0fe-00949b166a2d" ZoneFilterRegularExpression="^究极神兵绝境战$" Name="绝神兵轻量型三连桶科技1.1 By凛子" Enabled="true">
     <Folders>
       <Folder Id="0fc34c96-81ca-47d9-9ab5-790a017a218f" Name="小队初始化" Enabled="true">
         <Folders />
@@ -88,10 +88,12 @@
           <Trigger Enabled="true" Name="处理点名" Id="b846cf7a-59fa-428f-97a6-0d8dd01a0db6" RegularExpression="">
             <Actions>
               <Action OrderNumber="1" ListVariableOp="SortByKeys" ListVariableName="三连桶列表" ListVariableExpression="s+:${lvar:party.indexof(${_this})}" ActionType="ListVariable" Asynchronous="False" />
-              <Action OrderNumber="2" NamedCallbackName="mark" NamedCallbackParam="{&#xD;&#xA;  &quot;ActorID&quot;: 0x${lvar:三连桶列表[1]},&#xD;&#xA;  &quot;MarkType&quot;: &quot;attack1&quot;,&#xD;&#xA;  &quot;LocalOnly&quot;: false &#xD;&#xA;}" VariableOp="SetString" VariableName="MT_桶" VariableExpression="1" ActionType="NamedCallback" Asynchronous="False" />
-              <Action OrderNumber="3" NamedCallbackName="mark" NamedCallbackParam="{&#xD;&#xA;  &quot;ActorID&quot;: 0x${lvar:三连桶列表[2]},&#xD;&#xA;  &quot;MarkType&quot;: &quot;attack2&quot;,&#xD;&#xA;  &quot;LocalOnly&quot;: false &#xD;&#xA;}" VariableOp="SetString" VariableName="MT_桶" VariableExpression="1" ActionType="NamedCallback" Asynchronous="False" />
-              <Action OrderNumber="4" NamedCallbackName="mark" NamedCallbackParam="{&#xD;&#xA;  &quot;ActorID&quot;: 0x${lvar:三连桶列表[3]},&#xD;&#xA;  &quot;MarkType&quot;: &quot;attack3&quot;,&#xD;&#xA;  &quot;LocalOnly&quot;: false &#xD;&#xA;}" VariableOp="SetString" VariableName="MT_桶" VariableExpression="1" ActionType="NamedCallback" Asynchronous="False" />
-              <Action OrderNumber="5" TriggerId="8d8982c1-3377-4a5a-a652-389b9530f0b4" TriggerForce="regexp,conditions" ActionType="Trigger" ExecutionDelayExpression="20000" Asynchronous="False" />
+              <Action OrderNumber="2" NamedCallbackName="mark" NamedCallbackParam="{&#xD;&#xA;  &quot;ActorID&quot;: 0x${lvar:三连桶列表[1]},&#xD;&#xA;  &quot;MarkType&quot;: &quot;attack1&quot;,&#xD;&#xA;  &quot;LocalOnly&quot;: false &#xD;&#xA;}" VariableOp="SetString" VariableName="MT_桶" VariableExpression="1" ActionType="NamedCallback" ExecutionDelayExpression="50" Asynchronous="False" />
+              <Action OrderNumber="3" NamedCallbackName="mark" NamedCallbackParam="{&#xD;&#xA;  &quot;ActorID&quot;: 0x${lvar:三连桶列表[2]},&#xD;&#xA;  &quot;MarkType&quot;: &quot;attack2&quot;,&#xD;&#xA;  &quot;LocalOnly&quot;: false &#xD;&#xA;}" VariableOp="SetString" VariableName="MT_桶" VariableExpression="1" ActionType="NamedCallback" ExecutionDelayExpression="50" Asynchronous="False" />
+              <Action OrderNumber="4" NamedCallbackName="mark" NamedCallbackParam="{&#xD;&#xA;  &quot;ActorID&quot;: 0x${lvar:三连桶列表[3]},&#xD;&#xA;  &quot;MarkType&quot;: &quot;attack3&quot;,&#xD;&#xA;  &quot;LocalOnly&quot;: false &#xD;&#xA;}" VariableOp="SetString" VariableName="MT_桶" VariableExpression="1" ActionType="NamedCallback" ExecutionDelayExpression="50" Asynchronous="False" />
+              <Action OrderNumber="5" Description="Debug" DescriptionOverride="True" />
+              <Action OrderNumber="6" NamedCallbackName="command" NamedCallbackParam="/e&#xD;&#xA;1桶：${l:" ActionType="NamedCallback" />
+              <Action OrderNumber="7" TriggerId="8d8982c1-3377-4a5a-a652-389b9530f0b4" TriggerForce="regexp,conditions" ActionType="Trigger" ExecutionDelayExpression="20000" Asynchronous="False" />
             </Actions>
           </Trigger>
           <Trigger Enabled="true" Name="获取点名" Id="850c02f6-9387-456d-aa56-77acaddb4378" RegularExpression="^.{14} \S* 15:.{8}:[^:]*:(2B6C|2B6B):[^:]*:(?&lt;pid&gt;[^:]*)">
