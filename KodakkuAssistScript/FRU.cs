@@ -12,7 +12,7 @@ using System.Collections.Concurrent;
 
 namespace MyScriptNamespace
 {
-    [ScriptType(name: "绝伊甸P5地火格子指路", territorys: [1238], guid: "KnightRider-FRU-P514", version: "0.0.0.3", author: "KnightRider")]
+    [ScriptType(name: "绝伊甸P5地火格子指路", territorys: [1238], guid: "A20DB976-B60D-E62D-B93E-A164275C13AD", version: "0.0.0.3", author: "KnightRider")]
     public class FRUScript
     {
         [UserSetting("地火安全指路颜色")]
