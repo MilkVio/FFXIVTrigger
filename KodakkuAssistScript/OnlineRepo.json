@@ -1,0 +1,10 @@
+[
+{
+    "Name": "绝伊甸P5地火格子指路",
+    "Guid": "KnightRider-FRU-P514",
+    "Version": "0.0.0.3",
+    "Author": "KnightRider",
+    "DownloadUrl": "https://raw.githubusercontent.com/MilkVio/FFXIVTrigger/refs/heads/main/KodakkuAssistScript/FRU.cs",
+    "UpdateInfo": "初版更新，建议搭配BossMod防止指路出错跑错地火"
+}
+]
