@@ -2,9 +2,9 @@
 {
     "Name": "绝伊甸P5地火格子指路",
     "Guid": "A20DB976-B60D-E62D-B93E-A164275C13AD",
-    "Version": "0.0.0.4",
+    "Version": "0.0.0.5",
     "Author": "KnightRider",
     "DownloadUrl": "https://raw.githubusercontent.com/MilkVio/FFXIVTrigger/refs/heads/main/KodakkuAssistScript/FRU.cs",
-    "UpdateInfo": "修复了地火交点出现在正点A可能出现的指路错误"
+    "UpdateInfo": "增加用来可视开关状态的调试开关 实际输出会在读条地火时输出 KnightRider祝地火順利~"
 },
 ]
