@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Numerics;
 using KodakkuAssist.Module.GameEvent;
 using KodakkuAssist.Script;
@@ -12,7 +12,7 @@ using System.Collections.Concurrent;
 
 namespace MyScriptNamespace
 {
-    [ScriptType(name: "绝伊甸P5地火格子指路", territorys: [1238], guid: "A20DB976-B60D-E62D-B93E-A164275C13AD", version: "0.0.0.4", author: "KnightRider")]
+    [ScriptType(name: "绝伊甸P5地火格子指路", territorys: [1238], guid: "A20DB976-B60D-E62D-B93E-A164275C13AD", version: "0.0.0.5", author: "KnightRider")]
     public class FRUScript
     {
         [UserSetting("地火安全指路颜色")]
@@ -200,6 +200,12 @@ namespace MyScriptNamespace
             P1P3Blades.Clear();
             BladeRoutes.Clear();
             BladeRoutes = Enumerable.Repeat<Vector2?>(null, 7).ToList();
+        }
+        
+        [ScriptMethod(name: "调试开关", eventType: EventTypeEnum.StartCasting, eventCondition: ["ActionId:40306"],userControl:true)]
+        public void 阶段记录_P5调试(Event @event, ScriptAccessory accessory)
+        {
+            accessory.Method.SendChat($"/e KnightRider祝地火順利~");
         }
         
         //捕获组
