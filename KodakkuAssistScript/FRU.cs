@@ -13,7 +13,7 @@ using System.Collections.Concurrent;
 
 namespace MyScriptNamespace
 {
-    [ScriptType(name: "绝伊甸P5地火格子指路", territorys: [1238], guid: "A20DB976-B60D-E62D-B93E-A164275C13AD", version: "0.0.0.8", author: "KnightRider")]
+    [ScriptType(name: "绝伊甸P5地火格子指路", territorys: [1238], guid: "A20DB976-B60D-E62D-B93E-A164275C13AD", version: "0.0.0.9", author: "KnightRider")]
     public class FRUScript
     {
         [UserSetting("地火安全指路颜色")]
@@ -277,7 +277,7 @@ namespace MyScriptNamespace
                  lock (drawLock)
                  {
                      Phase = "P5运算结束";
-                     accessory.Method.SendChat($"/e P5运算结束");
+                     //accessory.Method.SendChat($"/e P5运算结束");
                      var id = Convert.ToUInt32(@event["SourceId"], 16);
                      Vector2 FarthestPoint = new Vector2();
                      Vector2 ClosestPoint = new Vector2();
