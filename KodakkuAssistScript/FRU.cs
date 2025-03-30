@@ -13,7 +13,7 @@ using System.Collections.Concurrent;
 
 namespace MyScriptNamespace
 {
-    [ScriptType(name: "绝伊甸P5地火格子指路", territorys: [1238], guid: "A20DB976-B60D-E62D-B93E-A164275C13AD", version: "0.0.0.9", author: "KnightRider")]
+    [ScriptType(name: "绝伊甸P5地火格子指路", territorys: [1238], guid: "A20DB976-B60D-E62D-B93E-A164275C13AD", version: "0.0.1.0", author: "KnightRider")]
     public class FRUScript
     {
         [UserSetting("地火安全指路颜色")]
@@ -69,17 +69,20 @@ namespace MyScriptNamespace
         private List<Blade> P1P3Blades = new List<Blade>();
         private List<onPoint> onPoints = new List<onPoint>();
         private List<Vector2?> BladeRoutes;
-        
-        public void Init(ScriptAccessory accessory)
+        private void resetPoints()
         {
-            blades.Clear();
-            P1P3Blades.Clear();
             onPoints.Clear();
-            BladeRoutes = Enumerable.Repeat<Vector2?>(null, 7).ToList();
             onPoints.Add(new onPoint("A", new Vector2(100, 93), new Vector2(100, 91.5f), new Vector2(101.4f, 92.9f), new Vector2(100, 94.3f), new Vector2(98.6f, 92.9f)));
             onPoints.Add(new onPoint("B", new Vector2(107, 100), new Vector2(108.5f, 100), new Vector2(107, 101.4f), new Vector2(105.6f, 100), new Vector2(107, 98.6f)));
             onPoints.Add(new onPoint("C", new Vector2(100, 107), new Vector2(100, 108.5f), new Vector2(98.6f, 107), new Vector2(100, 105.6f), new Vector2(101.4f, 107.1f)));
             onPoints.Add(new onPoint("D", new Vector2(93, 100), new Vector2(91.5f, 100), new Vector2(93, 98.6f), new Vector2(94.4f, 100), new Vector2(93, 101.4f)));
+        }
+        public void Init(ScriptAccessory accessory)
+        {
+            blades.Clear();
+            P1P3Blades.Clear();
+            BladeRoutes = Enumerable.Repeat<Vector2?>(null, 7).ToList();
+            resetPoints();//初始化地火坐标
         }
 
         public static Vector2? mathPoint(Blade b1, Blade b2)
@@ -205,6 +208,7 @@ namespace MyScriptNamespace
             BladeRoutes.Clear();
             bladeCount = 0;
             BladeRoutes = Enumerable.Repeat<Vector2?>(null, 7).ToList();
+            resetPoints();//初始化地火坐标
         }
         
         [ScriptMethod(name: "调试开关", eventType: EventTypeEnum.StartCasting, eventCondition: ["ActionId:40306"],userControl:true)]
@@ -238,6 +242,7 @@ namespace MyScriptNamespace
                     if (blades.Count == 6) //如果收集到了6个地火数据
                     {
                         ProcessBlades();//处理三个交点+更改阶段=>P5地火计算完成
+                        //accessory.Method.SendChat($"/e 去{OnPoint.Name}点起跑");
                     }
                 }
             }
