@@ -5,6 +5,7 @@ using KodakkuAssist.Script;
 using KodakkuAssist.Module.GameEvent.Struct;
 using KodakkuAssist.Module.Draw;
 using System.Windows.Forms;
+using System.Threading;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ using System.Collections.Concurrent;
 
 namespace MyScriptNamespace
 {
-    [ScriptType(name: "绝伊甸P5地火格子指路", territorys: [1238], guid: "A20DB976-B60D-E62D-B93E-A164275C13AD", version: "0.0.0.5", author: "KnightRider")]
+    [ScriptType(name: "绝伊甸P5地火格子指路", territorys: [1238], guid: "A20DB976-B60D-E62D-B93E-A164275C13AD", version: "0.0.0.8", author: "KnightRider")]
     public class FRUScript
     {
         [UserSetting("地火安全指路颜色")]
@@ -26,6 +27,8 @@ namespace MyScriptNamespace
         private Vector2? Point3 = new Vector2(0f, 0f);
         private Vector2? MiddlePoint = new Vector2(0f, 0f);
         private onPoint? OnPoint = null;
+        private int bladeCount = 0;
+        
         public class Blade
         {
             public UInt32 Id { get; set; }
@@ -66,6 +69,7 @@ namespace MyScriptNamespace
         private List<Blade> P1P3Blades = new List<Blade>();
         private List<onPoint> onPoints = new List<onPoint>();
         private List<Vector2?> BladeRoutes;
+        
         public void Init(ScriptAccessory accessory)
         {
             blades.Clear();
@@ -199,6 +203,7 @@ namespace MyScriptNamespace
             blades.Clear();
             P1P3Blades.Clear();
             BladeRoutes.Clear();
+            bladeCount = 0;
             BladeRoutes = Enumerable.Repeat<Vector2?>(null, 7).ToList();
         }
         
@@ -208,192 +213,209 @@ namespace MyScriptNamespace
             accessory.Method.SendChat($"/e KnightRider祝地火順利~");
         }
         
+        private readonly object bladeLock = new object();
         //捕获组
         [ScriptMethod(name: "地火数据捕获", eventType: EventTypeEnum.ObjectEffect, eventCondition: ["Id1:1"], userControl:false)]
         public void 地火数据捕获(Event @event, ScriptAccessory accessory)
         {
             if (Phase == "P5地火")//捕获限定区域
             {
-                if (blades.Count < 7)//如果地火<6就继续捕获
+                lock (bladeLock)
                 {
-                    var pos = JsonConvert.DeserializeObject<Vector3>(@event["SourcePosition"]);
-                    //存入数据
-                    blades.Add(new Blade(
-                        id: Convert.ToUInt32(@event["SourceId"], 16),
-                        x: Convert.ToDouble(pos.X),
-                        y: Convert.ToDouble(pos.Z),
-                        rotation: Convert.ToDouble(@event["SourceRotation"])
-                    ));
-                }
-                if (blades.Count == 6)//如果收集到了6个地火数据
-                {
-                    //accessory.Method.SendChat($"/e 收集完成");
-                    var sortedBlades = blades.OrderBy(b => b.Id).ToList();//按OID排序List
-                    //accessory.Method.SendChat($"/e 排序完成");
-                    if (sortedBlades != null)
+                    if (bladeCount < 7) //如果地火<7就继续捕获
                     {
-                        //accessory.Method.SendChat($"/e 排序完成");
-                        //存入13点
-                        P1P3Blades.Add(sortedBlades[0]);
-                        P1P3Blades.Add(sortedBlades[1]);
-                        P1P3Blades.Add(sortedBlades[4]);
-                        P1P3Blades.Add(sortedBlades[5]);
-                        //计算三个交点
-                        Point1 = mathPoint(sortedBlades[0], sortedBlades[1]);//计算第1交点
-                        Point2 = mathPoint(sortedBlades[2], sortedBlades[3]);//计算第2交点
-                        Point3 = mathPoint(sortedBlades[4], sortedBlades[5]);//计算第3交点
-                        MiddlePoint = middlePoint(Point1, Point3);//计算第13中点
-                        OnPoint = FindClosestOnPoint(onPoints,MiddlePoint);//计算从哪个正点开始起跑
-                        //accessory.Method.SendChat($"/e 去{OnPoint.Name}点起跑");
-                        Phase = "P5地火计算完成";
+                        var pos = JsonConvert.DeserializeObject<Vector3>(@event["SourcePosition"]);
+                        //存入数据
+                        blades.Add(new Blade(
+                            id: Convert.ToUInt32(@event["SourceId"], 16),
+                            x: Convert.ToDouble(pos.X),
+                            y: Convert.ToDouble(pos.Z),
+                            rotation: Convert.ToDouble(@event["SourceRotation"])
+                        ));
+                        bladeCount++;
+                        //accessory.Method.SendChat($"/e {bladeCount}");
+                    }
+                    if (blades.Count == 6) //如果收集到了6个地火数据
+                    {
+                        ProcessBlades();//处理三个交点+更改阶段=>P5地火计算完成
                     }
                 }
             }
         }
+
+        private void ProcessBlades()
+        {
+            //accessory.Method.SendChat($"/e 收集完成");
+            var sortedBlades = blades.OrderBy(b => b.Id).ToList();//按OID排序List
+            //accessory.Method.SendChat($"/e 排序完成");
+            if (sortedBlades != null)
+            {
+                //accessory.Method.SendChat($"/e 排序完成");
+                //存入13点
+                P1P3Blades.Add(sortedBlades[0]);
+                P1P3Blades.Add(sortedBlades[1]);
+                P1P3Blades.Add(sortedBlades[4]);
+                P1P3Blades.Add(sortedBlades[5]);
+                //计算三个交点
+                Point1 = mathPoint(sortedBlades[0], sortedBlades[1]);//计算第1交点
+                Point2 = mathPoint(sortedBlades[2], sortedBlades[3]);//计算第2交点
+                Point3 = mathPoint(sortedBlades[4], sortedBlades[5]);//计算第3交点
+                MiddlePoint = middlePoint(Point1, Point3);//计算第13中点
+                OnPoint = FindClosestOnPoint(onPoints,MiddlePoint);//计算从哪个正点开始起跑
+                //accessory.Method.SendChat($"/e 去{OnPoint.Name}点起跑");
+                Phase = "P5地火计算完成";
+            }
+        }
         
+        private readonly object drawLock = new object();
          //1火开始发光特效
         [ScriptMethod(name: "地火数据捕获2", eventType: EventTypeEnum.ObjectEffect, eventCondition: ["Id2:16"], userControl:false)]
         public void P5_地火2(Event @event, ScriptAccessory accessory)
         {
              if (Phase == "P5地火计算完成")//限制分组
              {
-                 Phase = "P5运算结束";
-                 var id = Convert.ToUInt32(@event["SourceId"], 16);
-                 Vector2 FarthestPoint = new Vector2();
-                 Vector2 ClosestPoint = new Vector2();
-                 if (id == P1P3Blades[0].Id || id == P1P3Blades[1].Id)//P1起火
+                 lock (drawLock)
                  {
-                     FarthestPoint = FindFarthestPoint(OnPoint, Point1);
-                     ClosestPoint = FindClosestPoint(OnPoint, Point1);
+                     Phase = "P5运算结束";
+                     accessory.Method.SendChat($"/e P5运算结束");
+                     var id = Convert.ToUInt32(@event["SourceId"], 16);
+                     Vector2 FarthestPoint = new Vector2();
+                     Vector2 ClosestPoint = new Vector2();
+                     if (id == P1P3Blades[0].Id || id == P1P3Blades[1].Id) //P1起火
+                     {
+                         FarthestPoint = FindFarthestPoint(OnPoint, Point1);
+                         ClosestPoint = FindClosestPoint(OnPoint, Point1);
+                     }
+                     else if (id == P1P3Blades[2].Id || id == P1P3Blades[3].Id) //P3起火
+                     {
+                         FarthestPoint = FindFarthestPoint(OnPoint, Point3);
+                         ClosestPoint = FindClosestPoint(OnPoint, Point3);
+                     }
+
+                     //远 近 近 远
+                     BladeRoutes.Insert(0, FarthestPoint); //第1跑起点 与起火点相对最远
+                     BladeRoutes.Insert(1, ClosestPoint); //第2跑起点 与起火点相对最近
+                     BladeRoutes.Insert(2, FindFarthestPoint(OnPoint, Point2)); //第3跑路径是上还是下 相对P2最远
+                     BladeRoutes.Insert(3, FindClosestPoint(OnPoint, Point2)); //第4跑路径是上还是下 相对P2最近
+                     BladeRoutes.Insert(4, ClosestPoint); //第5跑起点 与起火点相对最近
+                     BladeRoutes.Insert(5, FarthestPoint); //第5跑起点 与起火点相对最远
+
+                     //指路初期想法： 0绿1红 1绿出2红 2绿出3红
+                     //每次2000毫秒？
+                     int BladeTimes = 2000;
+                     //0绿1红
+                     var Goline0 = accessory.Data.GetDefaultDrawProperties();
+                     Goline0.Owner = accessory.Data.Me;
+                     Goline0.DestoryAt = 9000;
+                     Goline0.Color = BladeSafeColor.V4;
+                     Goline0.Scale = new(1);
+                     Goline0.ScaleMode |= ScaleMode.YByDistance;
+                     Goline0.TargetPosition = Vector3Fucker(BladeRoutes[0]);
+                     accessory.Method.SendDraw(DrawModeEnum.Imgui, DrawTypeEnum.Displacement, Goline0);
+
+                     var line1 = accessory.Data.GetDefaultDrawProperties();
+                     line1.Position = Vector3Fucker(BladeRoutes[0]);
+                     line1.DestoryAt = 9000;
+                     line1.Color = BladeDangerColor.V4;
+                     line1.Scale = new(1);
+                     line1.ScaleMode |= ScaleMode.YByDistance;
+                     line1.TargetPosition = Vector3Fucker(BladeRoutes[1]);
+                     accessory.Method.SendDraw(DrawModeEnum.Imgui, DrawTypeEnum.Displacement, line1);
+                     /////////////////////////////////////1绿放2 基础延迟9000
+                     var Goline1 = accessory.Data.GetDefaultDrawProperties();
+                     Goline1.Owner = accessory.Data.Me;
+                     Goline1.Delay = 9000;
+                     Goline1.DestoryAt = BladeTimes;
+                     Goline1.Color = BladeSafeColor.V4;
+                     Goline1.Scale = new(1);
+                     Goline1.ScaleMode |= ScaleMode.YByDistance;
+                     Goline1.TargetPosition = Vector3Fucker(BladeRoutes[1]);
+                     accessory.Method.SendDraw(DrawModeEnum.Imgui, DrawTypeEnum.Displacement, Goline1);
+
+                     var line2 = accessory.Data.GetDefaultDrawProperties();
+                     line2.Position = Vector3Fucker(BladeRoutes[1]);
+                     line2.Delay = 9000;
+                     line2.DestoryAt = BladeTimes;
+                     line2.Color = BladeDangerColor.V4;
+                     line2.Scale = new(1);
+                     line2.ScaleMode |= ScaleMode.YByDistance;
+                     line2.TargetPosition = Vector3Fucker(BladeRoutes[2]);
+                     accessory.Method.SendDraw(DrawModeEnum.Imgui, DrawTypeEnum.Displacement, line2);
+
+                     /////////////////////////////////////2绿放3 基础延迟9000+bladetime
+                     var Goline2 = accessory.Data.GetDefaultDrawProperties();
+                     Goline2.Owner = accessory.Data.Me;
+                     Goline2.Delay = 9000 + BladeTimes;
+                     Goline2.DestoryAt = BladeTimes;
+                     Goline2.Color = BladeSafeColor.V4;
+                     Goline2.Scale = new(1);
+                     Goline2.ScaleMode |= ScaleMode.YByDistance;
+                     Goline2.TargetPosition = Vector3Fucker(BladeRoutes[2]);
+                     accessory.Method.SendDraw(DrawModeEnum.Imgui, DrawTypeEnum.Displacement, Goline2);
+
+                     var line3 = accessory.Data.GetDefaultDrawProperties();
+                     line3.Position = Vector3Fucker(BladeRoutes[2]);
+                     line3.Delay = 9000 + BladeTimes;
+                     line3.DestoryAt = BladeTimes;
+                     line3.Color = BladeDangerColor.V4;
+                     line3.Scale = new(1);
+                     line3.ScaleMode |= ScaleMode.YByDistance;
+                     line3.TargetPosition = Vector3Fucker(BladeRoutes[3]);
+                     accessory.Method.SendDraw(DrawModeEnum.Imgui, DrawTypeEnum.Displacement, line3);
+
+                     /////////////////////////////////////3绿放4 基础延迟9000+bladetime*2
+                     var Goline3 = accessory.Data.GetDefaultDrawProperties();
+                     Goline3.Owner = accessory.Data.Me;
+                     Goline3.Delay = 9000 + BladeTimes * 2;
+                     Goline3.DestoryAt = BladeTimes;
+                     Goline3.Color = BladeSafeColor.V4;
+                     Goline3.Scale = new(1);
+                     Goline3.ScaleMode |= ScaleMode.YByDistance;
+                     Goline3.TargetPosition = Vector3Fucker(BladeRoutes[3]);
+                     accessory.Method.SendDraw(DrawModeEnum.Imgui, DrawTypeEnum.Displacement, Goline3);
+
+                     var line4 = accessory.Data.GetDefaultDrawProperties();
+                     line4.Position = Vector3Fucker(BladeRoutes[3]);
+                     line4.Delay = 9000 + BladeTimes * 2;
+                     line4.DestoryAt = BladeTimes;
+                     line4.Color = BladeDangerColor.V4;
+                     line4.Scale = new(1);
+                     line4.ScaleMode |= ScaleMode.YByDistance;
+                     line4.TargetPosition = Vector3Fucker(BladeRoutes[4]);
+                     accessory.Method.SendDraw(DrawModeEnum.Imgui, DrawTypeEnum.Displacement, line4);
+
+                     /////////////////////////////////////4绿放5 基础延迟9000+bladetime*3
+                     var Goline4 = accessory.Data.GetDefaultDrawProperties();
+                     Goline4.Owner = accessory.Data.Me;
+                     Goline4.Delay = 9000 + BladeTimes * 3;
+                     Goline4.DestoryAt = BladeTimes;
+                     Goline4.Color = BladeSafeColor.V4;
+                     Goline4.Scale = new(1);
+                     Goline4.ScaleMode |= ScaleMode.YByDistance;
+                     Goline4.TargetPosition = Vector3Fucker(BladeRoutes[4]);
+                     accessory.Method.SendDraw(DrawModeEnum.Imgui, DrawTypeEnum.Displacement, Goline4);
+
+                     var line5 = accessory.Data.GetDefaultDrawProperties();
+                     line5.Position = Vector3Fucker(BladeRoutes[4]);
+                     line5.Delay = 9000 + BladeTimes * 3;
+                     line5.DestoryAt = BladeTimes;
+                     line5.Color = BladeDangerColor.V4;
+                     line5.Scale = new(1);
+                     line5.ScaleMode |= ScaleMode.YByDistance;
+                     line5.TargetPosition = Vector3Fucker(BladeRoutes[5]);
+                     accessory.Method.SendDraw(DrawModeEnum.Imgui, DrawTypeEnum.Displacement, line5);
+
+                     /////////////////////////////////////5绿放6 基础延迟9000+bladetime*4
+                     var Goline5 = accessory.Data.GetDefaultDrawProperties();
+                     Goline5.Owner = accessory.Data.Me;
+                     Goline5.Delay = 9000 + BladeTimes * 4;
+                     Goline5.DestoryAt = BladeTimes;
+                     Goline5.Color = BladeSafeColor.V4;
+                     Goline5.Scale = new(1);
+                     Goline5.ScaleMode |= ScaleMode.YByDistance;
+                     Goline5.TargetPosition = Vector3Fucker(BladeRoutes[5]);
+                     accessory.Method.SendDraw(DrawModeEnum.Imgui, DrawTypeEnum.Displacement, Goline5);
                  }
-                 else if (id == P1P3Blades[2].Id || id == P1P3Blades[3].Id)//P3起火
-                 {
-                     FarthestPoint = FindFarthestPoint(OnPoint, Point3);
-                     ClosestPoint = FindClosestPoint(OnPoint, Point3);
-                 }
-                 //远 近 近 远
-                 BladeRoutes.Insert(0, FarthestPoint);//第1跑起点 与起火点相对最远
-                 BladeRoutes.Insert(1, ClosestPoint);//第2跑起点 与起火点相对最近
-                 BladeRoutes.Insert(2, FindFarthestPoint(OnPoint, Point2));//第3跑路径是上还是下 相对P2最远
-                 BladeRoutes.Insert(3, FindClosestPoint(OnPoint, Point2));//第4跑路径是上还是下 相对P2最近
-                 BladeRoutes.Insert(4, ClosestPoint);//第5跑起点 与起火点相对最近
-                 BladeRoutes.Insert(5, FarthestPoint);//第5跑起点 与起火点相对最远
-                 
-                 //指路初期想法： 0绿1红 1绿出2红 2绿出3红
-                 //每次2000毫秒？
-                 int BladeTimes = 2000;
-                 //0绿1红
-                 var Goline0 = accessory.Data.GetDefaultDrawProperties();
-                 Goline0.Owner = accessory.Data.Me;
-                 Goline0.DestoryAt = 9000;
-                 Goline0.Color = BladeSafeColor.V4;
-                 Goline0.Scale = new(1);
-                 Goline0.ScaleMode |= ScaleMode.YByDistance;
-                 Goline0.TargetPosition = Vector3Fucker(BladeRoutes[0]);
-                 accessory.Method.SendDraw(DrawModeEnum.Imgui, DrawTypeEnum.Displacement, Goline0); 
-                 
-                 var line1 = accessory.Data.GetDefaultDrawProperties();
-                 line1.Position = Vector3Fucker(BladeRoutes[0]);
-                 line1.DestoryAt = 9000;
-                 line1.Color = BladeDangerColor.V4;
-                 line1.Scale = new(1);
-                 line1.ScaleMode |= ScaleMode.YByDistance;
-                 line1.TargetPosition = Vector3Fucker(BladeRoutes[1]);
-                 accessory.Method.SendDraw(DrawModeEnum.Imgui, DrawTypeEnum.Displacement, line1); 
-                 /////////////////////////////////////1绿放2 基础延迟9000
-                 var Goline1 = accessory.Data.GetDefaultDrawProperties();
-                 Goline1.Owner = accessory.Data.Me;
-                 Goline1.Delay = 9000;
-                 Goline1.DestoryAt = BladeTimes;
-                 Goline1.Color = BladeSafeColor.V4;
-                 Goline1.Scale = new(1);
-                 Goline1.ScaleMode |= ScaleMode.YByDistance;
-                 Goline1.TargetPosition = Vector3Fucker(BladeRoutes[1]);
-                 accessory.Method.SendDraw(DrawModeEnum.Imgui, DrawTypeEnum.Displacement, Goline1);
-                 
-                 var line2 = accessory.Data.GetDefaultDrawProperties();
-                 line2.Position = Vector3Fucker(BladeRoutes[1]);
-                 line2.Delay = 9000;
-                 line2.DestoryAt = BladeTimes;
-                 line2.Color = BladeDangerColor.V4;
-                 line2.Scale = new(1);
-                 line2.ScaleMode |= ScaleMode.YByDistance;
-                 line2.TargetPosition = Vector3Fucker(BladeRoutes[2]);
-                 accessory.Method.SendDraw(DrawModeEnum.Imgui, DrawTypeEnum.Displacement, line2);
-                 
-                 /////////////////////////////////////2绿放3 基础延迟9000+bladetime
-                 var Goline2 = accessory.Data.GetDefaultDrawProperties();
-                 Goline2.Owner = accessory.Data.Me;
-                 Goline2.Delay = 9000 + BladeTimes;
-                 Goline2.DestoryAt = BladeTimes;
-                 Goline2.Color = BladeSafeColor.V4;
-                 Goline2.Scale = new(1);
-                 Goline2.ScaleMode |= ScaleMode.YByDistance;
-                 Goline2.TargetPosition = Vector3Fucker(BladeRoutes[2]);
-                 accessory.Method.SendDraw(DrawModeEnum.Imgui, DrawTypeEnum.Displacement, Goline2);
-                 
-                 var line3 = accessory.Data.GetDefaultDrawProperties();
-                 line3.Position = Vector3Fucker(BladeRoutes[2]);
-                 line3.Delay = 9000 + BladeTimes;
-                 line3.DestoryAt = BladeTimes;
-                 line3.Color = BladeDangerColor.V4;
-                 line3.Scale = new(1);
-                 line3.ScaleMode |= ScaleMode.YByDistance;
-                 line3.TargetPosition = Vector3Fucker(BladeRoutes[3]);
-                 accessory.Method.SendDraw(DrawModeEnum.Imgui, DrawTypeEnum.Displacement, line3);
-                 
-                 /////////////////////////////////////3绿放4 基础延迟9000+bladetime*2
-                 var Goline3 = accessory.Data.GetDefaultDrawProperties();
-                 Goline3.Owner = accessory.Data.Me;
-                 Goline3.Delay = 9000 + BladeTimes * 2;
-                 Goline3.DestoryAt = BladeTimes;
-                 Goline3.Color = BladeSafeColor.V4;
-                 Goline3.Scale = new(1);
-                 Goline3.ScaleMode |= ScaleMode.YByDistance;
-                 Goline3.TargetPosition = Vector3Fucker(BladeRoutes[3]);
-                 accessory.Method.SendDraw(DrawModeEnum.Imgui, DrawTypeEnum.Displacement, Goline3);
-                 
-                 var line4 = accessory.Data.GetDefaultDrawProperties();
-                 line4.Position = Vector3Fucker(BladeRoutes[3]);
-                 line4.Delay = 9000 + BladeTimes * 2;
-                 line4.DestoryAt = BladeTimes;
-                 line4.Color = BladeDangerColor.V4;
-                 line4.Scale = new(1);
-                 line4.ScaleMode |= ScaleMode.YByDistance;
-                 line4.TargetPosition = Vector3Fucker(BladeRoutes[4]);
-                 accessory.Method.SendDraw(DrawModeEnum.Imgui, DrawTypeEnum.Displacement, line4);
-                 
-                 /////////////////////////////////////4绿放5 基础延迟9000+bladetime*3
-                 var Goline4 = accessory.Data.GetDefaultDrawProperties();
-                 Goline4.Owner = accessory.Data.Me;
-                 Goline4.Delay = 9000 + BladeTimes * 3;
-                 Goline4.DestoryAt = BladeTimes;
-                 Goline4.Color = BladeSafeColor.V4;
-                 Goline4.Scale = new(1);
-                 Goline4.ScaleMode |= ScaleMode.YByDistance;
-                 Goline4.TargetPosition = Vector3Fucker(BladeRoutes[4]);
-                 accessory.Method.SendDraw(DrawModeEnum.Imgui, DrawTypeEnum.Displacement, Goline4);
-                 
-                 var line5 = accessory.Data.GetDefaultDrawProperties();
-                 line5.Position = Vector3Fucker(BladeRoutes[4]);
-                 line5.Delay = 9000 + BladeTimes * 3;
-                 line5.DestoryAt = BladeTimes;
-                 line5.Color = BladeDangerColor.V4;
-                 line5.Scale = new(1);
-                 line5.ScaleMode |= ScaleMode.YByDistance;
-                 line5.TargetPosition = Vector3Fucker(BladeRoutes[5]);
-                 accessory.Method.SendDraw(DrawModeEnum.Imgui, DrawTypeEnum.Displacement, line5);
-                 
-                 /////////////////////////////////////5绿放6 基础延迟9000+bladetime*4
-                 var Goline5 = accessory.Data.GetDefaultDrawProperties();
-                 Goline5.Owner = accessory.Data.Me;
-                 Goline5.Delay = 9000 + BladeTimes * 4;
-                 Goline5.DestoryAt = BladeTimes - 1000;
-                 Goline5.Color = BladeSafeColor.V4;
-                 Goline5.Scale = new(1);
-                 Goline5.ScaleMode |= ScaleMode.YByDistance;
-                 Goline5.TargetPosition = Vector3Fucker(BladeRoutes[5]);
-                 accessory.Method.SendDraw(DrawModeEnum.Imgui, DrawTypeEnum.Displacement, Goline5);
              }
         }
     }
