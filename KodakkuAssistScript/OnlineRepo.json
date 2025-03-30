@@ -5,6 +5,6 @@
     "Version": "0.0.0.9",
     "Author": "KnightRider",
     "DownloadUrl": "https://raw.githubusercontent.com/MilkVio/FFXIVTrigger/refs/heads/main/KodakkuAssistScript/FRU.cs",
-    "UpdateInfo": "使用Lock修复并发问题，尝试修复概率一火指路无限远的Bug"
+    "UpdateInfo": "使用Lock修复并发问题，尝试修复概率一火指路无限远的Bug，注释了一些debug输出"
 },
 ]
